@@ -4,5 +4,8 @@
 Welcome to this project!  
 This project is designed for the corporation CM.com  
   
-Contributors:  
+## Contributors:  
 Amin El Abdellaoui, Samed Dağal, Julian van Honk, Cuneyt Terkeşli, Stijn Versluis
+  
+## Copyright
+All rights to this project belong to CM.com
