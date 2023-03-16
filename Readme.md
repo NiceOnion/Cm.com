@@ -1,6 +1,5 @@
 
 # CM.com Demo Flow Editor
-
 Welcome to this project!  
 This project is designed for CM.com.  
   
@@ -9,3 +8,5 @@ Amin El Abdellaoui, Samed Dağal, Julian van Honk, Cuneyt Terkeşli, [Stijn Vers
   
 ## Copyright
 All rights to this project belong to CM.com.
+
+![image](https://www.cm.com/images/cm.svg)
