@@ -13,7 +13,5 @@ namespace InterfaceLayer
         AccountDTO GetByID(int id);
 
         AccountDTO GetByLogin(string name, string password);
-
-        bool Update(AccountDTO accountDTO);
     }
 }
