@@ -7,7 +7,7 @@ namespace DataAccessLayer
     {
         string dbName = "dbi482774_dfeditor";
         string dbPass = "DFEditor0123";
-        internal DbConnection DbConnection; 
+        internal SqlConnection DbConnection; 
 
         internal void InitializeDB()
         {
