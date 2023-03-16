@@ -20,7 +20,7 @@ namespace DataAccessLayer
                     using (DbConnection)
                     {
                         string query = "INSERT INTO Account (Name, Password) VALUES (@name, @password)";
-                        using (SqlCommand CMD = new SqlCommand(query, (SqlConnection)DbConnection))
+                        using (SqlCommand CMD = new(query, (SqlConnection)DbConnection))
                         {
                             CMD.Parameters.AddWithValue("@name", accountDTO.Name);
                             CMD.Parameters.AddWithValue("@password", accountDTO.Password);
@@ -55,7 +55,7 @@ namespace DataAccessLayer
                     {
                         string query = "SELECT * FROM Account WHERE ID=@id";
 
-                        SqlCommand spelerCommand = new SqlCommand(query, (SqlConnection)DbConnection);
+                        SqlCommand spelerCommand = new(query, (SqlConnection)DbConnection);
                         spelerCommand.Parameters.AddWithValue("@id", id);
                         using (SqlDataReader reader = spelerCommand.ExecuteReader())
                         {
@@ -96,7 +96,7 @@ namespace DataAccessLayer
                     {
                         string query = "SELECT * FROM Account WHERE Name=@name AND Password=@password";
 
-                        SqlCommand spelerCommand = new SqlCommand(query, (SqlConnection)DbConnection);
+                        SqlCommand spelerCommand = new(query, (SqlConnection)DbConnection);
                         spelerCommand.Parameters.AddWithValue("@name", name);
                         spelerCommand.Parameters.AddWithValue("@password", password);
                         using (SqlDataReader reader = spelerCommand.ExecuteReader())
