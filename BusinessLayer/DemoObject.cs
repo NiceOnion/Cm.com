@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    internal class DemoObject
+    public class DemoObject
     {
-        public string name { get; private set; } = "";
+        public string Name { get; private set; } = "";
         //public Account account { get; private set; }
         
-        public DemoObject(){
-
+        public DemoObject(string name){
+            Name = name;
         }
 
         public DemoObject(DemoDTO demoDTO) {
 
-            this.name = demoDTO.name;
+            this.Name = demoDTO.Name;
             //this.account = account;
         }
     }

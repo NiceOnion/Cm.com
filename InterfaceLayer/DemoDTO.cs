@@ -2,11 +2,11 @@
 {
     public class DemoDTO
     {
-        public string name;
+        public string Name;
 
         public DemoDTO(string name) 
         {
-            this.name = name;
+            this.Name = name;
         }
     }
 }

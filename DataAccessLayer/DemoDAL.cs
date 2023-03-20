@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public class DemoDAL : SQLConnect ,IDemo
+    public class DemoDAL : SQLConnect, IDemo
     {
 
 
@@ -22,8 +22,9 @@ namespace DataAccessLayer
             try
             {
                 OpenConnection();
-                string sqlstring = "SELECT * FROM Demo";
+                string sqlstring = "SELECT * FROM Demo WHERE Id = @id";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
+                sqlCommand.Parameters.AddWithValue("id", DemoID);
                 using (SqlDataReader reader = sqlCommand.ExecuteReader())
                 {
                     if (reader.HasRows)
@@ -48,12 +49,31 @@ namespace DataAccessLayer
                 OpenConnection();
                 string sqlstring = "INSERT INTO Demo(Name) VALUES (@name)";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
-                sqlCommand.Parameters.AddWithValue("@name", demoDTO.name);
-                sqlCommand.ExecuteNonQuery();    
+                sqlCommand.Parameters.AddWithValue("@name", demoDTO.Name);
+                sqlCommand.ExecuteNonQuery();
                 CloseConnection();
                 return true;
             }
-            catch (Exception e){ return false;}
+            catch (Exception e) { return false; }
+        }
+
+        public List<DemoDTO> GetAllDemo()
+        {
+            var demoDTOs = new List<DemoDTO>();
+            try
+            {
+                OpenConnection();
+                string sqlstring = "SELECT * FROM Demo";
+                SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    demoDTOs.Add(new DemoDTO(Convert.ToString(reader["Name"])));
+                }
+                CloseConnection();
+                return demoDTOs;
+            }
+            catch (Exception e) { return null; }
         }
     }
 }

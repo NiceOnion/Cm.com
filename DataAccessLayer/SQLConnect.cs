@@ -9,6 +9,11 @@ namespace DataAccessLayer
         string dbPass = "DFEditor0123";
         internal SqlConnection DbConnection; 
 
+        public SQLConnect()
+        {
+            InitializeDB();
+        }
+
         internal void InitializeDB()
         {
             string connectionString = $"Data Source=mssqlstud.fhict.local;Database={dbName};User Id={dbName};Password={dbPass};MultipleActiveResultSets=true;";

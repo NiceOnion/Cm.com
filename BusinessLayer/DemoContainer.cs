@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    internal class DemoContainer
+    public class DemoContainer
     {
         IDemo IDemo;
 
@@ -25,7 +25,10 @@ namespace BusinessLayer
         public DemoObject GetOneDemoObject(int ID) 
         {
             return new DemoObject(IDemo.GetOneDemo(ID));
-                
+        }
+        public List<DemoObject> GetAllDemo() 
+        {
+            return new List<DemoObject>(IDemo.GetAllDemo().ConvertAll(demoDTO => new DemoObject(demoDTO)));
         }
     }
 }
