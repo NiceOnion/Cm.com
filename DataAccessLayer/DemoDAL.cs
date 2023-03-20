@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public class DemoDAL : SQLConnect ,IDemo
+    public class DemoDAL : SQLConnect, IDemo
     {
 
 
@@ -49,11 +49,29 @@ namespace DataAccessLayer
                 string sqlstring = "INSERT INTO Demo(Name) VALUES (@name)";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
                 sqlCommand.Parameters.AddWithValue("@name", demoDTO.name);
-                sqlCommand.ExecuteNonQuery();    
+                sqlCommand.ExecuteNonQuery();
                 CloseConnection();
                 return true;
             }
-            catch (Exception e){ return false;}
+            catch (Exception e) { return false; }
+        }
+        public bool DeleteDemo(int id)
+        {
+            try
+            {
+                OpenConnection();
+                string sqlstring = " update Demo set Visibility='False' Where ID=@ID";
+                SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
+                sqlCommand.Parameters.AddWithValue("@ID", id);
+                return sqlCommand.ExecuteNonQuery() > 0;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally { CloseConnection(); }
+
         }
     }
 }

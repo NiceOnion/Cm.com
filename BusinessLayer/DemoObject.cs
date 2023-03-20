@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    internal class DemoObject
+    public class DemoObject
     {
         public string name { get; private set; } = "";
         //public Account account { get; private set; }
