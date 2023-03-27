@@ -10,10 +10,30 @@ namespace DataAccessLayer
 {
     public class DemoDAL : SQLConnect ,IDemo
     {
+        public bool EditDemo(int demoID)
+        {
+            DemoDTO demoDTO = null;
+            try
+            {
+                OpenConnection();
+                string sqlstring = "UPDATE Demo SET Name = @Test,Visibility = @Visibility Where ID = @ID";
+                SqlCommand sqlCommand = new SqlCommand(sqlstring);
+                sqlCommand.Parameters.AddWithValue("ID",demoID);
+                sqlCommand.ExecuteNonQuery();
+                 
 
-
-
-
+            }
+            catch (Exception Exception)
+            {
+                Console.WriteLine(Exception.Message);
+                throw;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return true;
+        }
 
         public DemoDTO GetOneDemo(int DemoID)
         {

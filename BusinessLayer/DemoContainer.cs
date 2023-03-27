@@ -27,5 +27,9 @@ namespace BusinessLayer
             return new DemoObject(IDemo.GetOneDemo(ID));
                 
         }
+        public int EditDemo(int DemoID)
+        {
+            return EditDemo(DemoID);
+        }
     }
 }
