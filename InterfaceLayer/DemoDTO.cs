@@ -8,5 +8,10 @@
         {
             this.name = name;
         }
+        public DemoDTO()
+        {
+
+        }
+
     }
 }

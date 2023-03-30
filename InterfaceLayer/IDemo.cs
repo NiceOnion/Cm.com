@@ -12,5 +12,6 @@ namespace InterfaceLayer
         public bool NewDemo(DemoDTO demoDTO);
         public DemoDTO GetOneDemo(int ID);
         public bool EditDemo(int DemoID);
+        public bool SaveDemo(DemoDTO demoObject);
     }
 }
