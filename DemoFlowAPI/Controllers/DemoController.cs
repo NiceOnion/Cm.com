@@ -20,5 +20,26 @@ namespace DemoFlowAPI.Controllers
             // Return a no content response
             return Ok("Deleted");
         }
+
+        [HttpPost("/add/{id}")]
+        public IActionResult Add([FromBody]DemoData data)
+        {
+            try
+            {
+                demoContainer.NewDemoObject(new DemoDTO(data.DemoName));
+                return Ok("Added");
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
+        }
+
+        public class DemoData
+        {
+            public int AccountId { get; set; }
+            public string DemoName { get; set; }
+        }
     }
 }
