@@ -24,6 +24,7 @@ namespace DataAccessLayer
                         {
                             CMD.Parameters.AddWithValue("@name", accountDTO.Name);
                             CMD.Parameters.AddWithValue("@password", accountDTO.Password);
+                            CMD.ExecuteScalar();
                         }
                     }
                     CloseConnection();

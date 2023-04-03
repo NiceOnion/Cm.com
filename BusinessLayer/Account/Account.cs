@@ -11,7 +11,7 @@ namespace BusinessLayer
     {
         public int ID { get; private set; }
         public string Name { get; private set; }
-        public string Password { get; private set; }
+        private string Password { get; set; }
 
         public Account(int id, string name, string password)
         {
