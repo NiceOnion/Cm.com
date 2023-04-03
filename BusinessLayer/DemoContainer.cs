@@ -27,5 +27,17 @@ namespace BusinessLayer
             return new DemoObject(IDemo.GetOneDemo(ID));
                 
         }
+        public bool EditDemo(int DemoID)
+        {
+            return EditDemo(DemoID);
+        }
+        public bool SaveDemo(DemoObject demoObject)
+        {
+            DemoDTO demoDTO = new DemoDTO();
+            demoDTO.name = demoObject.name;
+            // id and visibility
+            IDemo.SaveDemo(demoDTO);
+            return true;
+        }
     }
 }

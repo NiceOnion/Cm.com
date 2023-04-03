@@ -11,9 +11,53 @@ namespace DataAccessLayer
     public class DemoDAL : SQLConnect ,IDemo
     {
 
+        public bool SaveDemo(DemoDTO demoObject)
+        {
+            DemoDTO demoDTO = null;
+            try
+            {
+                OpenConnection();
+                string sqlstring = "INSERT INTO [Demo] ([Name], [Visibility]) VALUES(@Name, @Visibility)";
+                SqlCommand sqlCommand = new SqlCommand(sqlstring);
+                sqlCommand.Parameters.AddWithValue("@Name", demoObject);
+                sqlCommand.Parameters.AddWithValue("@Visibility", demoObject);
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return true;
+        }
+        public bool EditDemo(int demoID)
+        {
+            DemoDTO demoDTO = null;
+            try
+            {
+                OpenConnection();
+                string sqlstring = "UPDATE Demo SET Name = @Test,Visibility = @Visibility Where ID = @ID";
+                SqlCommand sqlCommand = new SqlCommand(sqlstring);
+                sqlCommand.Parameters.AddWithValue("@ID",demoID);
+                sqlCommand.ExecuteNonQuery();
+                 
 
-
-
+            }
+            catch (Exception Exception)
+            {
+                Console.WriteLine(Exception.Message);
+                throw;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return true;
+        }
 
         public DemoDTO GetOneDemo(int DemoID)
         {
@@ -55,5 +99,7 @@ namespace DataAccessLayer
             }
             catch (Exception e){ return false;}
         }
+
+     
     }
 }
