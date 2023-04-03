@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    internal class DemoObject
+    public class DemoObject
     {
         public string name { get; private set; } = "";
+        public bool visibility { get; private set; }
+        public int id { get; private set; }
         //public Account account { get; private set; }
-        
+
         public DemoObject(){
 
         }
@@ -20,6 +22,8 @@ namespace BusinessLayer
         public DemoObject(DemoDTO demoDTO) {
 
             this.name = demoDTO.name;
+            this.visibility = demoDTO.visibility;
+            this.id = demoDTO.id;
             //this.account = account;
         }
     }
