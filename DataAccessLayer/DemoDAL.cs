@@ -99,7 +99,60 @@ namespace DataAccessLayer
             }
             catch (Exception e){ return false;}
         }
+        public bool DeleteDemo(int id)
+        {
+            try
+            {
+                OpenConnection();
+                string sqlstring = " update Demo set Visibility='False' Where ID=@ID";
+                SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
+                sqlCommand.Parameters.AddWithValue("@ID", id);
+                return sqlCommand.ExecuteNonQuery() > 0;
 
-     
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally { CloseConnection(); }
+
+        }
+
+        public List<DemoDTO> GetDemoList()
+        {
+            try
+            {
+                List<DemoDTO> demolist = new List<DemoDTO>();
+
+                string query = "select * from [Demo] where Visibility='True'";
+                SqlCommand sqlCommand = new SqlCommand(query, DbConnection);
+
+
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    DemoDTO demodto = new DemoDTO();
+                    demodto.id = Convert.ToInt32(reader["ID"]);
+                    demodto.name = Convert.ToString(reader["Name"]);
+                    demodto.visibility = Convert.ToBoolean(reader["Visibility"]);
+
+                    demolist.Add(demodto);
+                }
+                reader.Close();
+
+                return demolist;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+            finally { CloseConnection(); }
+        }
+
+
+
     }
 }
