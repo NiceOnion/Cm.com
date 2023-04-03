@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    internal class DemoContainer
+    public class DemoContainer
     {
         IDemo IDemo;
 
@@ -38,6 +38,21 @@ namespace BusinessLayer
             // id and visibility
             IDemo.SaveDemo(demoDTO);
             return true;
+        }
+        public bool DeleteDemo(int id)
+        {
+            return IDemo.DeleteDemo(id);
+        }
+        public List<DemoObject> GetDemoList()
+        {
+            List<DemoDTO> demoDTO = IDemo.GetDemoList();
+            List<DemoObject> demoList = new List<DemoObject>();
+            foreach (DemoDTO demo in demoDTO)
+            {
+                demoList.Add(new DemoObject(demo));
+            }
+
+            return demoList;
         }
     }
 }
