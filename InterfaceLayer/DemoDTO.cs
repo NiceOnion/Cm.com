@@ -7,6 +7,7 @@
         public DemoDTO(string name) 
         {
             this.name = name;
+
         }
         public DemoDTO()
         {
