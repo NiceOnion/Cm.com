@@ -15,9 +15,7 @@ namespace BusinessLayer
         public int Id { get; private set; }
         public int AccountId { get; private set; }
 
-        public DemoObject()
-        {
-        }
+        public DemoObject(){}
 
         public DemoObject(string name, int accountId)
         {
