@@ -11,7 +11,30 @@ namespace DataAccessLayer
     public class DemoDAL : SQLConnect, IDemo
     {
         public DemoDAL() { InitializeDB(); }
-
+        public bool SaveDemo(DemoDTO demoObject)
+        {
+            DemoDTO demoDTO = null;
+            try
+            {
+                
+                OpenConnection();
+                string sqlstring = "INSERT INTO [Demo] ([Name], [Visibility]) VALUES(@Name, @Visibility)";
+                SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
+                sqlCommand.Parameters.AddWithValue("@Name", demoObject.name);
+                sqlCommand.Parameters.AddWithValue("@Visibility", demoObject.visibility);
+                return sqlCommand.ExecuteNonQuery() > 0;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return true;
+        }
         public bool EditDemo(int demoID)
         {
             DemoDTO demoDTO = null;

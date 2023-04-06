@@ -1,4 +1,4 @@
-﻿using DataAccessLayer;
+using DataAccessLayer;
 using InterfaceLayer;
 using System;
 using System.Collections.Generic;
@@ -38,6 +38,7 @@ namespace BusinessLayer
         public bool SaveDemo(DemoObject demoObject)
         {
             DemoDTO demoDTO = new DemoDTO(demoObject.Name);
+            demoDTO.visibility = demoObject.visibility;
             IDemo.SaveDemo(demoDTO);
             return true;
         }

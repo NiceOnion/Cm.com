@@ -1,4 +1,6 @@
 ﻿using BusinessLayer;
+using DataAccessLayer;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +35,38 @@ namespace Unit_Tests
             Assert.AreEqual("test2", stub.demos[0].Name);
             Assert.IsTrue(demo);
             Assert.AreEqual("test", deletedemo.Name);
+
+        }
+        [TestMethod]
+        public void EditDemoTest()
+        {
+            //arrange
+            //act
+            //assert
+        }
+        [TestMethod]
+        public void SaveDemoTest()
+        {
+            //Arrange
+
+            STUB stub = new STUB();
+
+            DemoContainer democontainer = new DemoContainer(stub);
+            DemoObject demoObject = new DemoObject
+            {
+                id = 3,
+                name = "test4",
+                visibility = true
+            };
+            
+            //Act
+           var result=democontainer.SaveDemo(demoObject);
+
+            //Assert
+            Assert.AreEqual(3, stub.demos.Count);
+            Assert.AreEqual(demoObject.id, stub.demos.Last().id);
+            Assert.AreEqual(demoObject.name, stub.demos.Last().name);
+            Assert.AreEqual(demoObject.visibility, stub.demos.Last().visibility);
 
         }
     }

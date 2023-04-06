@@ -9,9 +9,9 @@ using InterfaceLayer;
 
 namespace Unit_Tests
 {
-    internal class STUB:IDemo
+    internal class STUB : IDemo
     {
-        internal List<AccountDTO> Accounts = new () { new AccountDTO(1, "TestName1", "TestPassword1"), new AccountDTO(2, "TestName2", "TestPassword 2"), new AccountDTO(3, "TestName3", "TestPassword3")};
+        internal List<AccountDTO> Accounts = new() { new AccountDTO(1, "TestName1", "TestPassword1"), new AccountDTO(2, "TestName2", "TestPassword 2"), new AccountDTO(3, "TestName3", "TestPassword3") };
         internal List<DemoDTO> demos = new List<DemoDTO>();
 
         public STUB()
@@ -37,10 +37,6 @@ namespace Unit_Tests
             return false;
         }
 
-        public bool EditDemo(int DemoID)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<DemoDTO> GetDemoList()
         {
@@ -62,7 +58,12 @@ namespace Unit_Tests
             throw new NotImplementedException();
         }
 
-        public bool SaveDemo(DemoDTO demoObject)
+        public bool SaveDemo(DemoDTO demoDTO)
+        {
+            demos.Add(demoDTO);
+            return true;
+        }
+        public bool EditDemo(int DemoID)
         {
             throw new NotImplementedException();
         }
