@@ -1,4 +1,4 @@
-﻿using DataAccessLayer;
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +17,9 @@ namespace BusinessLayer
 
         public DemoObject(){
 
+        public DemoObject(string name, int account){
+            Name = name;
+            Account = account;
         }
 
         public DemoObject(DemoDTO demoDTO) {

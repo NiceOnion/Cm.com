@@ -1,4 +1,4 @@
-﻿using InterfaceLayer;
+using InterfaceLayer;
 using System;
 using System.Data.SqlClient;
 using System.Collections.Generic;
@@ -8,36 +8,39 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public class DemoDAL : SQLConnect ,IDemo
+    public class DemoDAL : SQLConnect, IDemo
     {
-
-        public bool SaveDemo(DemoDTO demoObject)
+        public DemoDAL() { InitializeDB(); }
+        public List<DemoDTO> GetDemosOfUser(int userID)
         {
-            DemoDTO demoDTO = null;
+            List<DemoDTO> demoDTOs = new List<DemoDTO>();
+
             try
             {
                 OpenConnection();
-                string sqlstring = "INSERT INTO [Demo] ([Name], [Visibility]) VALUES(@Name, @Visibility)";
-                SqlCommand sqlCommand = new SqlCommand(sqlstring);
-                sqlCommand.Parameters.AddWithValue("@Name", demoObject);
-                sqlCommand.Parameters.AddWithValue("@Visibility", demoObject);
-                sqlCommand.ExecuteNonQuery();
+                string sqlstring = "SELECT Name, Visibility, AccountID FROM Demo WHERE AccountID = @userId AND Visibility = 1";
+                SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
+                sqlCommand.Parameters.AddWithValue("userId", userID);
+                using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            demoDTOs.Add(new DemoDTO(reader.GetString(0), reader.GetInt32(2), reader.GetBoolean(1)));
+                        }
+                        reader.Close();
+                    }
+                }
             }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                throw;
-            }
-            finally
-            {
-                CloseConnection();
-            }
-            return true;
+            catch (Exception e) { throw new Exception(e.Message); }
+            finally { CloseConnection(); }
+            return demoDTOs;
         }
         public bool EditDemo(int demoID)
         {
-            DemoDTO demoDTO = null;
             try
+            DemoDTO demoDTO = null;
             {
                 OpenConnection();
                 string sqlstring = "UPDATE Demo SET Name = @Test,Visibility = @Visibility Where ID = @ID";
@@ -48,12 +51,12 @@ namespace DataAccessLayer
 
             }
             catch (Exception Exception)
-            {
                 Console.WriteLine(Exception.Message);
+            {
                 throw;
             }
-            finally
             {
+            finally
                 CloseConnection();
             }
             return true;
@@ -66,7 +69,7 @@ namespace DataAccessLayer
             try
             {
                 OpenConnection();
-                string sqlstring = "SELECT * FROM Demo";
+                string sqlstring = "SELECT Mame, AccountID FROM Demo";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
                 using (SqlDataReader reader = sqlCommand.ExecuteReader())
                 {
@@ -74,9 +77,9 @@ namespace DataAccessLayer
                     {
                         while (reader.Read())
                         {
-                            demoDTO = new DemoDTO(Convert.ToString(reader["Name"]));
-                            reader.Close();
+                            demoDTO = new DemoDTO(reader.GetString(0), reader.GetInt32(1));
                         }
+                        reader.Close();
                     }
                 }
                 CloseConnection();
@@ -92,12 +95,12 @@ namespace DataAccessLayer
                 OpenConnection();
                 string sqlstring = "INSERT INTO Demo(Name) VALUES (@name)";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
-                sqlCommand.Parameters.AddWithValue("@name", demoDTO.name);
-                sqlCommand.ExecuteNonQuery();    
+                sqlCommand.Parameters.AddWithValue("@name", demoDTO.Name);
+                sqlCommand.ExecuteNonQuery();
                 CloseConnection();
                 return true;
             }
-            catch (Exception e){ return false;}
+            catch (Exception e) { return false; }
         }
         public bool DeleteDemo(int id)
         {
