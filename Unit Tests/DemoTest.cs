@@ -29,10 +29,10 @@ namespace Unit_Tests
 
             //Assert
             Assert.AreEqual(1, stub.demos.Count);
-            Assert.AreEqual(2, stub.demos.First().id);
-            Assert.AreEqual("test2", stub.demos[0].name);
+            Assert.AreEqual(2, stub.demos.First().Id);
+            Assert.AreEqual("test2", stub.demos[0].Name);
             Assert.IsTrue(demo);
-            Assert.AreEqual("test", deletedemo.name);
+            Assert.AreEqual("test", deletedemo.Name);
 
         }
     }

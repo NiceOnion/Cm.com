@@ -2,25 +2,25 @@ namespace DataAccessLayer
 {
     public class DemoDTO
     {
-        public string Name;
-        public int AccountId;
-        public bool Visibility = false;
+        public string Name { get; set; }    
+        public bool Visibility { get; set; }  
+        public int AccountID { get; set; }
+        public int Id { get; set; } 
 
         public DemoDTO(string name, bool visibility) 
         {
             this.Name = name;
-            this.Visibility = visibility;
         }
-        public DemoDTO(string name, int accountId) 
+        public DemoDTO(string name, int accountID)
         {
-            this.Name = name;
-            this.AccountId = accountId;
+            Name = name;
+            AccountID = accountID;
         }
-        public DemoDTO(string name, int accountId, bool visibility) 
+        public DemoDTO(string name, bool visibility)
         {
-            this.Name = name;
-            this.AccountId = accountId;
-            this.Visibility = visibility;
+            Name = name;
+            Visibility = visibility;
         }
+
     }
 }

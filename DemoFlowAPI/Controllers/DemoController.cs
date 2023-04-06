@@ -9,21 +9,6 @@ namespace DemoFlowAPI.Controllers
     [ApiController]
     public class DemoController : ControllerBase
     {
-        DemoContainer demoContainer = new DemoContainer(new DemoDAL());
-
-
-}
-
-using Microsoft.AspNetCore.Mvc;
-using BusinessLayer;
-using DataAccessLayer;
-
-namespace DemoFlowAPI.Controllers
-{
-    [ApiController]
-    [Route("Demos")]
-    public class DemoController : ControllerBase
-    {
         private readonly ILogger<DemoController> _logger;
         private readonly DemoContainer demoContainer;
         public DemoController()
@@ -31,7 +16,7 @@ namespace DemoFlowAPI.Controllers
             demoContainer = new DemoContainer(new DemoDAL());
         }
 
-        [HttpGet("Single/{id}", Name ="GetDemos")]
+        [HttpGet("Single/{id}", Name = "GetDemos")]
         public DemoObject GetDemo(int id)
         {
             return demoContainer.GetOneDemoObject(id);
@@ -42,8 +27,6 @@ namespace DemoFlowAPI.Controllers
         {
             return demoContainer.GetDemosOfUser(userId);
         }
-    }
-}
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
@@ -54,3 +37,5 @@ namespace DemoFlowAPI.Controllers
             return Ok("Deleted");
     }
         }
+    }
+}

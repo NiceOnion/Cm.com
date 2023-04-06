@@ -16,5 +16,6 @@ namespace InterfaceLayer
         public bool SaveDemo(DemoDTO demoObject);
        public bool DeleteDemo(int id);
         public List<DemoDTO> GetDemoList();
+        public List<DemoDTO> GetDemosOfUser(int userId);
     }
 }

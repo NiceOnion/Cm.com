@@ -16,23 +16,19 @@ namespace Unit_Tests
 
         public STUB()
         {
-            demos.Add(new DemoDTO
+            demos.Add(new DemoDTO("test", true)
             {
-                id = 1,
-                name = "test",
-                visibility = true
+                Id = 1,
             });
-            demos.Add(new DemoDTO
+            demos.Add(new DemoDTO("test2", true)
             {
-                id = 2,
-                name = "test2",
-                visibility = true
+                Id = 2
             });
         }
 
         public bool DeleteDemo(int id)
         {
-            DemoDTO demoDTO = demos.FirstOrDefault(x => x.id == id);
+            DemoDTO demoDTO = demos.FirstOrDefault(x => x.Id == id);
             var result = demos.Remove(demoDTO);
             if (result == true)
             {
@@ -49,6 +45,11 @@ namespace Unit_Tests
         public List<DemoDTO> GetDemoList()
         {
             return demos;
+        }
+
+        public List<DemoDTO> GetDemosOfUser(int userId)
+        {
+            throw new NotImplementedException();
         }
 
         public DemoDTO GetOneDemo(int ID)
