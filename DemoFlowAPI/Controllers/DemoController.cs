@@ -20,5 +20,11 @@ namespace DemoFlowAPI.Controllers
             // Return a no content response
             return Ok("Deleted");
         }
+        [HttpPost]
+        public IActionResult Save(DemoObject demoObject)
+        {
+            var result=demoContainer.SaveDemo(demoObject);  
+            return Ok(result);
+        }
     }
 }

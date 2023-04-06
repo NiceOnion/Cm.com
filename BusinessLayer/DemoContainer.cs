@@ -35,7 +35,8 @@ namespace BusinessLayer
         {
             DemoDTO demoDTO = new DemoDTO();
             demoDTO.name = demoObject.name;
-            // id and visibility
+            demoDTO.visibility = demoObject.visibility;
+
             IDemo.SaveDemo(demoDTO);
             return true;
         }
