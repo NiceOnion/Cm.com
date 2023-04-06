@@ -27,11 +27,9 @@ namespace BusinessLayer
 
         public DemoObject(DemoDTO demoDTO)
         {
-
             this.Name = demoDTO.Name;
             this.Visibility = demoDTO.Visibility;
             this.Id = demoDTO.Id;
-            //this.account = account;
         }
     }
 }
