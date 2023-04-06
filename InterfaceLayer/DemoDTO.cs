@@ -2,17 +2,24 @@
 {
     public class DemoDTO
     {
-        public string name { get; set; }    
-        public bool visibility { get; set; }    
-        public int id { get; set; } 
+        public string Name { get; set; }    
+        public bool Visibility { get; set; }  
+        public int AccountID { get; set; }
+        public int Id { get; set; } 
 
         public DemoDTO(string name) 
         {
-            this.name = name;
+            this.Name = name;
         }
-        public DemoDTO()
+        public DemoDTO(string name, int accountID)
         {
-
+            Name = name;
+            AccountID = accountID;
+        }
+        public DemoDTO(string name, bool visibility)
+        {
+            Name = name;
+            Visibility = visibility;
         }
 
     }

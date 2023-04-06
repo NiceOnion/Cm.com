@@ -12,20 +12,24 @@ namespace BusinessLayer
     {
         IDemo IDemo;
 
-        public DemoContainer (IDemo iDemo)
+        public DemoContainer(IDemo iDemo)
         {
             IDemo = iDemo;
         }
 
-        public bool NewDemoObject(string name /*, Account account*/)
+        public bool NewDemoObject(string name, int accountID)
         {
-            return IDemo.NewDemo(new DemoDTO( name /*, account*/));
+            return IDemo.NewDemo(new DemoDTO(name, accountID));
         }
 
-        public DemoObject GetOneDemoObject(int ID) 
+        public DemoObject GetOneDemoObject(int ID)
         {
             return new DemoObject(IDemo.GetOneDemo(ID));
-                
+        }
+
+        public List<DemoObject> GetDemosOfUser(int userID)
+        {
+            return IDemo.GetDemosOfUser(userID).ConvertAll(demoDTO => new DemoObject(demoDTO)); ;
         }
         public bool EditDemo(int DemoID)
         {
@@ -33,9 +37,7 @@ namespace BusinessLayer
         }
         public bool SaveDemo(DemoObject demoObject)
         {
-            DemoDTO demoDTO = new DemoDTO();
-            demoDTO.name = demoObject.name;
-            // id and visibility
+            DemoDTO demoDTO = new DemoDTO(demoObject.Name);
             IDemo.SaveDemo(demoDTO);
             return true;
         }
