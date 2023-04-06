@@ -18,7 +18,7 @@ namespace DataAccessLayer
             {
                 
                 OpenConnection();
-                string sqlstring = "INSERT INTO [Demo] ([Name], [Visibility]) VALUES(@Name, @Visibility)";
+                string sqlstring = "INSERT INTO [Demo] ([Name], [Visibility], AccountID) VALUES(@Name, @Visibility, 1)";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
                 sqlCommand.Parameters.AddWithValue("@Name", demoObject.name);
                 sqlCommand.Parameters.AddWithValue("@Visibility", demoObject.visibility);
