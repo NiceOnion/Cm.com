@@ -12,32 +12,10 @@ namespace DataAccessLayer
     {
         public DemoDAL() { InitializeDB(); }
 
-            try
-            {
-                OpenConnection();
-                string sqlstring = "SELECT Name, Visibility, AccountID FROM Demo WHERE AccountID = @userId AND Visibility = 1";
-                SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
-                sqlCommand.Parameters.AddWithValue("userId", userID);
-                using (SqlDataReader reader = sqlCommand.ExecuteReader())
-                {
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            demoDTOs.Add(new DemoDTO(reader.GetString(0), reader.GetInt32(2), reader.GetBoolean(1)));
-                        }
-                        reader.Close();
-                    }
-                }
-            }
-            catch (Exception e) { throw new Exception(e.Message); }
-            finally { CloseConnection(); }
-            return demoDTOs;
-        }
         public bool EditDemo(int demoID)
         {
-            try
             DemoDTO demoDTO = null;
+            try
             {
                 OpenConnection();
                 string sqlstring = "UPDATE Demo SET Name = @Test,Visibility = @Visibility Where ID = @ID";
@@ -48,12 +26,12 @@ namespace DataAccessLayer
 
             }
             catch (Exception Exception)
-                Console.WriteLine(Exception.Message);
             {
+                Console.WriteLine(Exception.Message);
                 throw;
             }
-            {
             finally
+            {
                 CloseConnection();
             }
             return true;
@@ -176,6 +154,11 @@ namespace DataAccessLayer
             //}
             //finally { CloseConnection(); }
             return result;
+        }
+
+        public bool SaveDemo(DemoDTO demoObject)
+        {
+            throw new NotImplementedException();
         }
     }
 }

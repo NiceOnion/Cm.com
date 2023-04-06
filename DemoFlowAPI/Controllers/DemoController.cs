@@ -35,7 +35,6 @@ namespace DemoFlowAPI.Controllers
             var deleteddemo = demoContainer.DeleteDemo(id);
             // Return a no content response
             return Ok("Deleted");
-    }
         }
     }
 }

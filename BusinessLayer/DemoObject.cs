@@ -13,16 +13,20 @@ namespace BusinessLayer
         public string Name { get; private set; } = "";
         public bool Visibility { get; private set; }
         public int Id { get; private set; }
-        public int account { get; private set; }
+        public int AccountId { get; private set; }
 
-        public DemoObject(){
-
-        public DemoObject(string name, int account){
-            Name = name;
-            Account = account;
+        public DemoObject()
+        {
         }
 
-        public DemoObject(DemoDTO demoDTO) {
+        public DemoObject(string name, int accountId)
+        {
+            Name = name;
+            AccountId = accountId;
+        }
+
+        public DemoObject(DemoDTO demoDTO)
+        {
 
             this.Name = demoDTO.Name;
             this.Visibility = demoDTO.Visibility;

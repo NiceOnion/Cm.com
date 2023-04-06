@@ -7,7 +7,7 @@ namespace DataAccessLayer
         public int AccountID { get; set; }
         public int Id { get; set; } 
 
-        public DemoDTO(string name, bool visibility) 
+        public DemoDTO(string name) 
         {
             this.Name = name;
         }
