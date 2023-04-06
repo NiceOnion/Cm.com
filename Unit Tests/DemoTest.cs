@@ -54,9 +54,9 @@ namespace Unit_Tests
             DemoContainer democontainer = new DemoContainer(stub);
             DemoObject demoObject = new DemoObject
             {
-                id = 3,
-                name = "test4",
-                visibility = true
+                Id = 3,
+                Name = "test4",
+                Visibility = true
             };
             
             //Act
@@ -64,9 +64,9 @@ namespace Unit_Tests
 
             //Assert
             Assert.AreEqual(3, stub.demos.Count);
-            Assert.AreEqual(demoObject.id, stub.demos.Last().id);
-            Assert.AreEqual(demoObject.name, stub.demos.Last().name);
-            Assert.AreEqual(demoObject.visibility, stub.demos.Last().visibility);
+            Assert.AreEqual(demoObject.Id, stub.demos.Last().Id);
+            Assert.AreEqual(demoObject.Name, stub.demos.Last().Name);
+            Assert.AreEqual(demoObject.Visibility, stub.demos.Last().Visibility);
 
         }
     }

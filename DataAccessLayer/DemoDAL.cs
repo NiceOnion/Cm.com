@@ -20,8 +20,8 @@ namespace DataAccessLayer
                 OpenConnection();
                 string sqlstring = "INSERT INTO [Demo] ([Name], [Visibility]) VALUES(@Name, @Visibility)";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
-                sqlCommand.Parameters.AddWithValue("@Name", demoObject.name);
-                sqlCommand.Parameters.AddWithValue("@Visibility", demoObject.visibility);
+                sqlCommand.Parameters.AddWithValue("@Name", demoObject.Name);
+                sqlCommand.Parameters.AddWithValue("@Visibility", demoObject.Visibility);
                 return sqlCommand.ExecuteNonQuery() > 0;
             }
             catch (Exception exception)
@@ -177,11 +177,6 @@ namespace DataAccessLayer
             //}
             //finally { CloseConnection(); }
             return result;
-        }
-
-        public bool SaveDemo(DemoDTO demoObject)
-        {
-            throw new NotImplementedException();
         }
     }
 }

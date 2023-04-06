@@ -38,7 +38,7 @@ namespace BusinessLayer
         public bool SaveDemo(DemoObject demoObject)
         {
             DemoDTO demoDTO = new DemoDTO(demoObject.Name);
-            demoDTO.visibility = demoObject.visibility;
+            demoDTO.Visibility = demoObject.Visibility;
             IDemo.SaveDemo(demoDTO);
             return true;
         }
