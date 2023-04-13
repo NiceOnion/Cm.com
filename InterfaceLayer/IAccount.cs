@@ -12,6 +12,6 @@ namespace InterfaceLayer
 
         AccountDTO GetByID(int id);
 
-        AccountDTO GetByLogin(string name, string password);
+        AccountDTO Login(AccountDTO accountDTO);
     }
 }
