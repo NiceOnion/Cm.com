@@ -16,7 +16,7 @@ namespace DataAccessLayer
             DemoDTO demoDTO = null;
             try
             {
-                
+
                 OpenConnection();
                 string sqlstring = "INSERT INTO [Demo] ([Name], [Visibility]) VALUES(@Name, @Visibility)";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
@@ -76,7 +76,10 @@ namespace DataAccessLayer
                     {
                         while (reader.Read())
                         {
-                            demoDTO = new DemoDTO(reader.GetString(1), reader.GetInt32(2));
+                            demoDTO = new DemoDTO(reader.GetString(1), reader.GetInt32(2))
+                            {
+                                Id = reader.GetInt32(0)
+                            };
                         }
                     }
                 }
@@ -136,7 +139,7 @@ namespace DataAccessLayer
 
                     DemoDTO demodto = new DemoDTO(Convert.ToString(reader["Name"]), Convert.ToBoolean(reader["Visibility"]))
                     {
-                        Id = Convert.ToInt32(reader["ID"])
+                        Id = Convert.ToInt32(reader["Id"])
                     };
 
                     demolist.Add(demodto);
@@ -161,22 +164,23 @@ namespace DataAccessLayer
         {
             //InitializeDB();
             var result = new List<DemoDTO>();
-            //try
-            //{
-            OpenConnection();
-            var command = new SqlCommand("SELECT Name, Visibility, AccountID FROM Demo WHERE Visibility = 1 AND AccountID = @accountId", DbConnection);
-            command.Parameters.AddWithValue("accountId", userId);
-
-            SqlDataReader demoReader = command.ExecuteReader();
-            while (demoReader.Read())
+            try
             {
-                result.Add(new DemoDTO(demoReader.GetString(0)));
+                OpenConnection();
+                var command = new SqlCommand("SELECT Id, Name, Visibility, AccountID FROM Demo WHERE Visibility = 1 AND AccountID = @accountId", DbConnection);
+                command.Parameters.AddWithValue("accountId", userId);
+
+                SqlDataReader demoReader = command.ExecuteReader();
+                while (demoReader.Read())
+                {
+                    result.Add(new DemoDTO(demoReader.GetString(1)) { Id = demoReader.GetInt32(0) });
+                }
             }
-            //} catch (Exception e)
-            //{
-            //    throw new Exception(e.Message);
-            //}
-            //finally { CloseConnection(); }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally { CloseConnection(); }
             return result;
         }
     }
