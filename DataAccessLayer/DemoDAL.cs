@@ -67,23 +67,24 @@ namespace DataAccessLayer
             try
             {
                 OpenConnection();
-                string sqlstring = "SELECT Mame, AccountID FROM Demo";
+                string sqlstring = "SELECT Id, Name, AccountID FROM Demo WHERE Id = @id";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
+                sqlCommand.Parameters.AddWithValue("id", DemoID);
                 using (SqlDataReader reader = sqlCommand.ExecuteReader())
                 {
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            demoDTO = new DemoDTO(reader.GetString(0), reader.GetInt32(1));
+                            demoDTO = new DemoDTO(reader.GetString(1), reader.GetInt32(2));
                         }
-                        reader.Close();
                     }
                 }
-                CloseConnection();
-                return demoDTO;
             }
-            catch (Exception e) { return null; }
+            catch (Exception e) { throw new Exception(e.Message); }
+            finally { CloseConnection(); }
+
+            return demoDTO;
         }
 
         public bool NewDemo(DemoDTO demoDTO)
