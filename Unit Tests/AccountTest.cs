@@ -175,8 +175,10 @@ namespace Unit_Tests
             Account_Test_DAL stub = new();
             AccountContainer container = new(stub);
 
+            Account account = new(expectedID, expectedName, expectedPassword);
+
             //Act
-            Account result = container.GetByLogin(expectedName, expectedPassword);
+            Account result = container.Login(account);
 
             //Assert
             string actualNewName = stub.newName;
@@ -210,8 +212,10 @@ namespace Unit_Tests
             Account_Test_DAL stub = new();
             AccountContainer container = new(stub);
 
+            Account account = new(0, expectedName, expectedPassword);
+
             //Act
-            Account result = container.GetByLogin(expectedName, expectedPassword);
+            Account result = container.Login(account);
 
             //Assert
             string actualNewName = stub.newName;
