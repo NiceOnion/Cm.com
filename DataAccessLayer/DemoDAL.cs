@@ -167,7 +167,7 @@ namespace DataAccessLayer
             try
             {
                 OpenConnection();
-                var command = new SqlCommand("SELECT Id, Name, Visibility, AccountID FROM Demo WHERE Visibility = 1 AND AccountID = @accountId", DbConnection);
+                var command = new SqlCommand("SELECT ID, Name, Visibility, AccountID FROM Demo WHERE Visibility = 1 AND AccountID = @accountId", DbConnection);
                 command.Parameters.AddWithValue("accountId", userId);
 
                 SqlDataReader demoReader = command.ExecuteReader();
