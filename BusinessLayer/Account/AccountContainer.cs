@@ -33,15 +33,15 @@ namespace BusinessLayer
             }
         }
 
-        public Account Login(Account account)
+        public int Login(Account account)
         {
             try
             {
-                return new(iAccount.Login(account.ToAccountDTO()));
+                return iAccount.Login(account.ToAccountDTO()).ID;
             }
             catch
             {
-                return null;
+                return 0;
             }
         }
     }
