@@ -20,8 +20,8 @@ namespace DataAccessLayer
                 OpenConnection();
                 string sqlstring = "INSERT INTO [Demo] ([Name], [Visibility], AccountID) VALUES(@Name, @Visibility, 1)";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
-                sqlCommand.Parameters.AddWithValue("@Name", demoObject.name);
-                sqlCommand.Parameters.AddWithValue("@Visibility", demoObject.visibility);
+                sqlCommand.Parameters.AddWithValue("@Name", demoObject.Name);
+                sqlCommand.Parameters.AddWithValue("@Visibility", demoObject.Visibility);
                 return sqlCommand.ExecuteNonQuery() > 0;
             }
             catch (Exception exception)
@@ -35,15 +35,16 @@ namespace DataAccessLayer
             }
             return true;
         }
-        public bool EditDemo(int demoID)
-        {
-            DemoDTO demoDTO = null;
+        public bool EditDemo(DemoDTO demoDTO)
+        {            
             try
             {
                 OpenConnection();
-                string sqlstring = "UPDATE Demo SET Name = @Test,Visibility = @Visibility Where ID = @ID";
-                SqlCommand sqlCommand = new SqlCommand(sqlstring);
-                sqlCommand.Parameters.AddWithValue("@ID",demoID);
+                string sqlstring = "UPDATE Demo SET Name = @Name ,Visibility = @Visibility Where ID = @ID";
+                SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
+                sqlCommand.Parameters.AddWithValue("@ID", demoDTO.Id);
+                sqlCommand.Parameters.AddWithValue("@Name", demoDTO.Name);
+                sqlCommand.Parameters.AddWithValue("@Visibility", demoDTO.Visibility);
                 sqlCommand.ExecuteNonQuery();
                  
 
@@ -93,7 +94,7 @@ namespace DataAccessLayer
                 OpenConnection();
                 string sqlstring = "INSERT INTO Demo(Name) VALUES (@name)";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
-                sqlCommand.Parameters.AddWithValue("@name", demoDTO.name);
+                sqlCommand.Parameters.AddWithValue("@name", demoDTO.Name);
                 sqlCommand.ExecuteNonQuery();    
                 CloseConnection();
                 return true;
@@ -134,9 +135,9 @@ namespace DataAccessLayer
                 {
 
                     DemoDTO demodto = new DemoDTO();
-                    demodto.id = Convert.ToInt32(reader["ID"]);
-                    demodto.name = Convert.ToString(reader["Name"]);
-                    demodto.visibility = Convert.ToBoolean(reader["Visibility"]);
+                    demodto.Id = Convert.ToInt32(reader["ID"]);
+                    demodto.Name = Convert.ToString(reader["Name"]);
+                    demodto.Visibility = Convert.ToBoolean(reader["Visibility"]);
 
                     demolist.Add(demodto);
                 }
@@ -153,7 +154,9 @@ namespace DataAccessLayer
             finally { CloseConnection(); }
         }
 
-
-
+        public List<DemoDTO> GetDemosOfUser(int userID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

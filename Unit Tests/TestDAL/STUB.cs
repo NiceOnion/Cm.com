@@ -62,9 +62,12 @@ namespace Unit_Tests
             demos.Add(demoDTO);
             return true;
         }
-        public bool EditDemo(int DemoID)
+        public bool EditDemo(DemoDTO demoDTO)
         {
-            throw new NotImplementedException();
+            DemoDTO demo = demos.First(x => x.Id == demoDTO.Id);
+            var result = demos.Remove(demo);
+             demos.Add(demoDTO);
+            return true;
         }
     }
 }

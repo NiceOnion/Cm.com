@@ -20,6 +20,26 @@ namespace DemoFlowAPI.Controllers
             // Return a no content response
             return Ok("Deleted");
         }
+
+        [HttpPut("{id}")]
+        public IActionResult EditDemo(int id, DemoObject demoobject )
+        {
+            // Check if the provided ID matches the ID of the demo object in the request body
+            if (id != demoobject.id)
+            {
+                return BadRequest();
+            }
+
+            // Try to update the demo object in the database
+            bool result = demoContainer.EditDemo(demoobject);
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
         [HttpPost]
         public IActionResult Save(DemoObject demoObject)
         {
