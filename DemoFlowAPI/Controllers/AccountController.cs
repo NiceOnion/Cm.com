@@ -13,7 +13,7 @@ namespace DemoFlowAPI.Controllers
         [HttpPost("Login")]
         public int Login([FromBody]Account account)
         {
-            return container.Login(account).ID;
+            return container.Login(account);
         }
 
         [HttpPost("Register")]
