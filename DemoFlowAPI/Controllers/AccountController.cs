@@ -11,7 +11,7 @@ namespace DemoFlowAPI.Controllers
         private AccountContainer container = new(new Account_SQL_DAL());
 
         [HttpPost("Login")]
-        public Account Login([FromBody]Account account)
+        public int Login([FromBody]Account account)
         {
             return container.Login(account);
         }
