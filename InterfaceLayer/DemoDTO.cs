@@ -30,8 +30,7 @@ namespace DataAccessLayer
             AccountID = accountID;
             Id = id;
             Name = name;
-            Visibility = visibility;
-            
+            Visibility = visibility;            
         }
     }
 }
