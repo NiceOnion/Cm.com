@@ -22,7 +22,7 @@ namespace DemoFlowAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult EditDemo(int id, DemoObject demoobject )
+        public IActionResult EditDemo(int id, DemoObject demoobject)
         {
             // Check if the provided ID matches the ID of the demo object in the request body
             if (id != demoobject.id)
@@ -43,8 +43,13 @@ namespace DemoFlowAPI.Controllers
         [HttpPost]
         public IActionResult Save(DemoObject demoObject)
         {
-            var result=demoContainer.SaveDemo(demoObject);  
+            var result = demoContainer.SaveDemo(demoObject);
+            if (result == false)
+            {
+                return BadRequest();
+            }
             return Ok(result);
+         
         }
     }
 }

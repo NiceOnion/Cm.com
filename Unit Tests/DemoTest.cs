@@ -46,7 +46,7 @@ namespace Unit_Tests
             DemoObject demoObject = new DemoObject
             {
                 id = 1,
-                accountId = 0,
+                //Accountid = 0, 
                 name = "Test14",
                 visibility = false,
             };
@@ -82,10 +82,9 @@ namespace Unit_Tests
 
             //Assert
             Assert.AreEqual(3, stub.demos.Count);
-            Assert.AreEqual(demoObject.id, stub.demos.Last().id);
-            Assert.AreEqual(demoObject.name, stub.demos.Last().name);
-            Assert.AreEqual(demoObject.visibility, stub.demos.Last().visibility);
-
+            Assert.AreEqual(demoObject.id, stub.demos.Last().Id);
+            Assert.AreEqual(demoObject.name, stub.demos.Last().Name);
+            Assert.AreEqual(demoObject.visibility, stub.demos.Last().Visibility);
         }
     }
 }

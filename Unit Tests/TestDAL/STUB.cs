@@ -18,21 +18,21 @@ namespace Unit_Tests
         {
             demos.Add(new DemoDTO
             {
-                id = 1,
-                name = "test",
-                visibility = true
+                Id = 1,
+                Name = "test",
+                Visibility = true
             });
             demos.Add(new DemoDTO
             {
-                id = 2,
-                name = "test2",
-                visibility = true
+                Id = 2,
+                Name = "test2",
+                Visibility = true
             });
         }
 
         public bool DeleteDemo(int id)
         {
-            DemoDTO demoDTO = demos.FirstOrDefault(x => x.id == id);
+            DemoDTO demoDTO = demos.FirstOrDefault(x => x.Id == id);
             var result = demos.Remove(demoDTO);
             if (result == true)
             {
@@ -68,6 +68,11 @@ namespace Unit_Tests
             var result = demos.Remove(demo);
              demos.Add(demoDTO);
             return true;
+        }
+
+        public List<DemoDTO> GetDemosOfUser(int userID)
+        {
+            throw new NotImplementedException();
         }
     }
 }
