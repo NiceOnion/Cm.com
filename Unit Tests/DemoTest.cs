@@ -31,8 +31,8 @@ namespace Unit_Tests
 
             //Assert
             Assert.AreEqual(1, stub.demos.Count);
-            Assert.AreEqual(2, stub.demos.First().id);
-            Assert.AreEqual("test2", stub.demos[0].name);
+            Assert.AreEqual(2, stub.demos.First().Id);
+            Assert.AreEqual("test2", stub.demos[0].Name);
             Assert.IsTrue(demo);
             Assert.AreEqual("test", deletedemo.name);
 
@@ -45,21 +45,21 @@ namespace Unit_Tests
             DemoContainer demoContainer = new DemoContainer(stub);
             DemoObject demoObject = new DemoObject
             {
-                Id = 1,
-                AccountId = 0,
-                Name = "Test14",
-                Visibility = false,
+                id = 1,
+                accountId = 0,
+                name = "Test14",
+                visibility = false,
             };
             //act
             var edited = demoContainer.EditDemo(demoObject);
             //assert
             Assert.AreEqual(2, stub.demos.Count);
-            Assert.AreEqual(1 ,demoObject.Id);
-            Assert.AreEqual("Test14",demoObject.Name);
-            Assert.AreEqual(false ,demoObject.Visibility);
-            Assert.AreNotEqual(2, demoObject.Id);
-            Assert.AreNotEqual("Test13", demoObject.Name);
-            Assert.AreNotEqual(true, demoObject.Visibility);
+            Assert.AreEqual(1 ,demoObject.id);
+            Assert.AreEqual("Test14",demoObject.name);
+            Assert.AreEqual(false ,demoObject.visibility);
+            Assert.AreNotEqual(2, demoObject.id);
+            Assert.AreNotEqual("Test13", demoObject.name);
+            Assert.AreNotEqual(true, demoObject.visibility);
 
         }
         [TestMethod]
