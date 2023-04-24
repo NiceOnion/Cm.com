@@ -10,9 +10,9 @@ namespace BusinessLayer
 {
     public class DemoObject
     {
-        public string name { get;  set; } = "";
-        public bool visibility { get;  set; }
-        public int id { get;  set; }
+        public string Name { get;  set; } = "";
+        public bool Visibility { get;  set; }
+        public int Id { get;  set; }
         //public Account account { get; private set; }
         public string Description { get; set; }
         public int AccountId { get; set; }
@@ -27,9 +27,9 @@ namespace BusinessLayer
 
         public DemoObject(DemoDTO demoDTO) {
 
-            this.name = demoDTO.Name;
-            this.visibility = demoDTO.Visibility;
-            this.id = demoDTO.Id;
+            this.Name = demoDTO.Name;
+            this.Visibility = demoDTO.Visibility;
+            this.Id = demoDTO.Id;
             //this.account = account;
         }
     }
