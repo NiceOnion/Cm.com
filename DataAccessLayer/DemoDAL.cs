@@ -1,4 +1,4 @@
-﻿using InterfaceLayer;
+using InterfaceLayer;
 using System;
 using System.Data.SqlClient;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public class DemoDAL : SQLConnect ,IDemo
+    public class DemoDAL : SQLConnect, IDemo
     {
         public DemoDAL() { InitializeDB(); }
         public bool SaveDemo(DemoDTO demoObject)
@@ -16,7 +16,7 @@ namespace DataAccessLayer
             DemoDTO demoDTO = null;
             try
             {
-                
+
                 OpenConnection();
                 string sqlstring = "INSERT INTO [Demo] ([Name], [Visibility], AccountID) VALUES(@Name, @Visibility, 1)";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
@@ -67,23 +67,27 @@ namespace DataAccessLayer
             try
             {
                 OpenConnection();
-                string sqlstring = "SELECT * FROM Demo";
+                string sqlstring = "SELECT Id, Name, AccountID FROM Demo WHERE Id = @id";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
+                sqlCommand.Parameters.AddWithValue("id", DemoID);
                 using (SqlDataReader reader = sqlCommand.ExecuteReader())
                 {
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            demoDTO = new DemoDTO(Convert.ToString(reader["Name"]));
-                            reader.Close();
+                            demoDTO = new DemoDTO(reader.GetString(1), reader.GetInt32(2))
+                            {
+                                Id = reader.GetInt32(0)
+                            };
                         }
                     }
                 }
-                CloseConnection();
-                return demoDTO;
             }
-            catch (Exception e) { return null; }
+            catch (Exception e) { throw new Exception(e.Message); }
+            finally { CloseConnection(); }
+
+            return demoDTO;
         }
 
         public bool NewDemo(DemoDTO demoDTO)
@@ -98,7 +102,7 @@ namespace DataAccessLayer
                 CloseConnection();
                 return true;
             }
-            catch (Exception e){ return false;}
+            catch (Exception e) { return false; }
         }
         public bool DeleteDemo(int id)
         {
@@ -132,12 +136,10 @@ namespace DataAccessLayer
                 SqlDataReader reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
                 {
-
                     DemoDTO demodto = new DemoDTO();
                     demodto.Id = Convert.ToInt32(reader["ID"]);
                     demodto.Name = Convert.ToString(reader["Name"]);
                     demodto.Visibility = Convert.ToBoolean(reader["Visibility"]);
-
                     demolist.Add(demodto);
                 }
                 reader.Close();
@@ -150,12 +152,33 @@ namespace DataAccessLayer
                 throw ex;
 
             }
-            finally { CloseConnection(); }
+            finally
+            {
+                CloseConnection();
+            }
         }
-
-        public List<DemoDTO> GetDemosOfUser(int userID)
+        public List<DemoDTO> GetDemosOfUser(int userId)
         {
-            throw new NotImplementedException();
+            //InitializeDB();
+            var result = new List<DemoDTO>();
+            try
+            {
+                OpenConnection();
+                var command = new SqlCommand("SELECT ID, Name, Visibility, AccountID FROM Demo WHERE Visibility = 1 AND AccountID = @accountId", DbConnection);
+                command.Parameters.AddWithValue("accountId", userId);
+
+                SqlDataReader demoReader = command.ExecuteReader();
+                while (demoReader.Read())
+                {
+                    result.Add(new DemoDTO(demoReader.GetString(1)) { Id = demoReader.GetInt32(0) });
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally { CloseConnection(); }
+            return result;
         }
     }
 }

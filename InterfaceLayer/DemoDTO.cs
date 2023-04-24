@@ -1,6 +1,6 @@
+
 ﻿using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
-
 namespace DataAccessLayer
 {
     [DataContract]
@@ -20,9 +20,15 @@ namespace DataAccessLayer
         {
             this.Name = name;
         }
-        public DemoDTO()
+        public DemoDTO(string name, int accountID)
         {
-
+            Name = name;
+            AccountID = accountID;
+        }
+        public DemoDTO(string name, bool visibility)
+        {
+            Name = name;
+            Visibility = visibility;
         }
 
         [JsonConstructor]

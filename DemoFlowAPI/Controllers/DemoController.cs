@@ -1,4 +1,4 @@
-﻿using DataAccessLayer;
+using DataAccessLayer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BusinessLayer;
@@ -9,8 +9,24 @@ namespace DemoFlowAPI.Controllers
     [ApiController]
     public class DemoController : ControllerBase
     {
-        DemoContainer demoContainer = new DemoContainer(new DemoDAL());
+        private readonly ILogger<DemoController> _logger;
+        private readonly DemoContainer demoContainer;
+        public DemoController()
+        {
+            demoContainer = new DemoContainer(new DemoDAL());
+        }
 
+        [HttpGet("Single/{id}", Name = "GetDemos")]
+        public DemoObject GetDemo(int id)
+        {
+            return demoContainer.GetOneDemoObject(id);
+        }
+
+        [HttpGet("{userId}")]
+        public List<DemoObject> GetDemosOfUser(int userId)
+        {
+            return demoContainer.GetDemosOfUser(userId);
+        }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

@@ -16,13 +16,13 @@ namespace Unit_Tests
 
         public STUB()
         {
-            demos.Add(new DemoDTO
+            demos.Add(new DemoDTO("test", true)
             {
                 Id = 1,
                 Name = "test",
                 Visibility = true
             });
-            demos.Add(new DemoDTO
+            demos.Add(new DemoDTO("test2", true)
             {
                 Id = 2,
                 Name = "test2",
@@ -45,6 +45,11 @@ namespace Unit_Tests
         public List<DemoDTO> GetDemoList()
         {
             return demos;
+        }
+
+        public List<DemoDTO> GetDemosOfUser(int userId)
+        {
+            throw new NotImplementedException();
         }
 
         public DemoDTO GetOneDemo(int ID)

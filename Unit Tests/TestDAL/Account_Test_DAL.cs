@@ -34,13 +34,13 @@ namespace Unit_Tests
             return null;
         }
 
-        public AccountDTO GetByLogin(string name, string password)
+        public AccountDTO Login(AccountDTO accountDTO)
         {
-            newName = name;
-            newPassword = password;
+            newName = accountDTO.Name;
+            newPassword = accountDTO.Password;
             foreach (AccountDTO account in Accounts)
             {
-                if (account.Name == name && account.Password == password)
+                if (account.Name == accountDTO.Name && account.Password == accountDTO.Password)
                 {
                     return account;
                 }

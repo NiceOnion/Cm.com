@@ -1,4 +1,4 @@
-﻿using DataAccessLayer;
+using DataAccessLayer;
 using InterfaceLayer;
 using System;
 using System.Collections.Generic;
@@ -12,20 +12,24 @@ namespace BusinessLayer
     {
         IDemo IDemo;
 
-        public DemoContainer (IDemo iDemo)
+        public DemoContainer(IDemo iDemo)
         {
             IDemo = iDemo;
         }
 
-        public bool NewDemoObject(string name /*, Account account*/)
+        public bool NewDemoObject(string name, int accountID)
         {
-            return IDemo.NewDemo(new DemoDTO( name /*, account*/));
+            return IDemo.NewDemo(new DemoDTO(name, accountID));
         }
 
-        public DemoObject GetOneDemoObject(int ID) 
+        public DemoObject GetOneDemoObject(int ID)
         {
             return new DemoObject(IDemo.GetOneDemo(ID));
-                
+        }
+
+        public List<DemoObject> GetDemosOfUser(int userID)
+        {
+            return IDemo.GetDemosOfUser(userID).ConvertAll(demoDTO => new DemoObject(demoDTO)); ;
         }
         public bool EditDemo(DemoObject demoObject)
         {

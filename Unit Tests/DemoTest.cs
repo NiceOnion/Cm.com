@@ -34,7 +34,7 @@ namespace Unit_Tests
             Assert.AreEqual(2, stub.demos.First().Id);
             Assert.AreEqual("test2", stub.demos[0].Name);
             Assert.IsTrue(demo);
-            Assert.AreEqual("test", deletedemo.name);
+            Assert.AreEqual("test", deletedemo.Name);
 
         }
         [TestMethod]
@@ -72,9 +72,9 @@ namespace Unit_Tests
             DemoContainer democontainer = new DemoContainer(stub);
             DemoObject demoObject = new DemoObject
             {
-                id = 3,
-                name = "test4",
-                visibility = true
+                Id = 3,
+                Name = "test4",
+                Visibility = true
             };
             
             //Act
