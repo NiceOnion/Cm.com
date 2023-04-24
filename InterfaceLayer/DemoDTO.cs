@@ -26,12 +26,13 @@ namespace DataAccessLayer
         }
 
         [JsonConstructor]
-        public DemoDTO(string name, bool visibility, int accountID, int id)
+        public DemoDTO(string name, bool visibility, int accountID, int id, string description)
         {
             AccountID = accountID;
             Id = id;
             Name = name;
-            Visibility = visibility;            
+            Visibility = visibility;
+            Description = description;
         }
     }
 }
