@@ -31,14 +31,20 @@ namespace BusinessLayer
         {
             return IDemo.GetDemosOfUser(userID).ConvertAll(demoDTO => new DemoObject(demoDTO)); ;
         }
-        public bool EditDemo(int DemoID)
+        public bool EditDemo(DemoObject demoObject)
         {
-            return EditDemo(DemoID);
+            DemoDTO demoDTO = new DemoDTO();
+            demoDTO.Name= demoObject.name;
+            demoDTO.Visibility= demoObject.visibility;
+            demoDTO.Id=demoObject.id;
+            demoDTO.Description = demoObject.Description;
+            return IDemo.EditDemo(demoDTO);
         }
         public bool SaveDemo(DemoObject demoObject)
         {
-            DemoDTO demoDTO = new DemoDTO(demoObject.Name);
-            demoDTO.Visibility = demoObject.Visibility;
+            DemoDTO demoDTO = new DemoDTO(demoObject.name);
+            demoDTO.Visibility = demoObject.visibility;
+            demoDTO.Id = demoObject.id;
             IDemo.SaveDemo(demoDTO);
             return true;
         }

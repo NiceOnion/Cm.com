@@ -1,11 +1,20 @@
+
+﻿using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 namespace DataAccessLayer
 {
+    [DataContract]
     public class DemoDTO
     {
-        public string Name { get; set; }    
-        public bool Visibility { get; set; }  
+        [DataMember]
+        public string Name { get; set; }
+        [DataMember]
+        public bool Visibility { get; set; }
+        [DataMember]
         public int AccountID { get; set; }
-        public int Id { get; set; } 
+        [DataMember]
+        public int Id { get; set; }
+        public string Description { get; set; }
 
         public DemoDTO(string name) 
         {
@@ -22,5 +31,14 @@ namespace DataAccessLayer
             Visibility = visibility;
         }
 
+        [JsonConstructor]
+        public DemoDTO(string name, bool visibility, int accountID, int id, string description)
+        {
+            AccountID = accountID;
+            Id = id;
+            Name = name;
+            Visibility = visibility;
+            Description = description;
+        }
     }
 }

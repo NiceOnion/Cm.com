@@ -41,8 +41,26 @@ namespace Unit_Tests
         public void EditDemoTest()
         {
             //arrange
+            STUB stub = new STUB();
+            DemoContainer demoContainer = new DemoContainer(stub);
+            DemoObject demoObject = new DemoObject
+            {
+                id = 1,
+                //Accountid = 0, 
+                name = "Test14",
+                visibility = false,
+            };
             //act
+            var edited = demoContainer.EditDemo(demoObject);
             //assert
+            Assert.AreEqual(2, stub.demos.Count);
+            Assert.AreEqual(1 ,demoObject.id);
+            Assert.AreEqual("Test14",demoObject.name);
+            Assert.AreEqual(false ,demoObject.visibility);
+            Assert.AreNotEqual(2, demoObject.id);
+            Assert.AreNotEqual("Test13", demoObject.name);
+            Assert.AreNotEqual(true, demoObject.visibility);
+
         }
         [TestMethod]
         public void SaveDemoTest()
@@ -64,10 +82,9 @@ namespace Unit_Tests
 
             //Assert
             Assert.AreEqual(3, stub.demos.Count);
-            Assert.AreEqual(demoObject.Id, stub.demos.Last().Id);
-            Assert.AreEqual(demoObject.Name, stub.demos.Last().Name);
-            Assert.AreEqual(demoObject.Visibility, stub.demos.Last().Visibility);
-
+            Assert.AreEqual(demoObject.id, stub.demos.Last().Id);
+            Assert.AreEqual(demoObject.name, stub.demos.Last().Name);
+            Assert.AreEqual(demoObject.visibility, stub.demos.Last().Visibility);
         }
     }
 }
