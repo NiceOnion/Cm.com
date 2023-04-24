@@ -17,9 +17,9 @@ namespace BusinessLayer
             IDemo = iDemo;
         }
 
-        public bool NewDemoObject(string name, int accountID)
+        public bool NewDemoObject(DemoDTO demoDTO /*, Account account*/)
         {
-            return IDemo.NewDemo(new DemoDTO(name, accountID));
+            return IDemo.NewDemo(demoDTO /*, account*/);
         }
 
         public DemoObject GetOneDemoObject(int ID)

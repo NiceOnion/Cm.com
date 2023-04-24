@@ -97,8 +97,8 @@ namespace DataAccessLayer
                 OpenConnection();
                 string sqlstring = "INSERT INTO Demo(Name) VALUES (@name)";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
-                sqlCommand.Parameters.AddWithValue("@name", demoDTO.Name);
-                sqlCommand.ExecuteNonQuery();
+                sqlCommand.Parameters.AddWithValue("name", demoDTO.name);
+                sqlCommand.ExecuteNonQuery();    
                 CloseConnection();
                 return true;
             }

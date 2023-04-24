@@ -16,6 +16,7 @@ namespace DemoFlowAPI.Controllers
             demoContainer = new DemoContainer(new DemoDAL());
         }
 
+
         [HttpGet("Single/{id}", Name = "GetDemos")]
         public DemoObject GetDemo(int id)
         {
@@ -33,14 +34,42 @@ namespace DemoFlowAPI.Controllers
         {
             // Delete the resource
             var deleteddemo = demoContainer.DeleteDemo(id);
-            // Return a no content response
+            // Return a no content responseinste
             return Ok("Deleted");
         }
+
+        [HttpPost("add")]
+        public IActionResult Add([FromBody]DemoData data)
+        {
+            Console.WriteLine("A request has been recieved: " + data);
+            try
+            {
+                demoContainer.NewDemoObject(new DemoDTO(data.DemoName));
+                return Ok("Added");
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        public class DemoData
+        {
+            public int AccountId { get; set; }
+            public string DemoName { get; set; }
+        }
+
         [HttpPost]
         public IActionResult Save(DemoObject demoObject)
         {
             var result=demoContainer.SaveDemo(demoObject);  
             return Ok(result);
+        }
+        
+        public class DemoData
+        {
+            public int AccountId { get; set; }
+            public string DemoName { get; set; }
         }
     }
 }

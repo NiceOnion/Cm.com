@@ -69,5 +69,21 @@ namespace Unit_Tests
             Assert.AreEqual(demoObject.Visibility, stub.demos.Last().Visibility);
 
         }
+
+        [TestMethod]
+        public void AddDemo()
+        {
+            //Arrange
+            STUB stub = new STUB();
+            DemoContainer demoContainer = new DemoContainer(stub);
+            DemoDTO newDemo = new DemoDTO("Boterkoek");
+
+            //Act
+            bool succes = demoContainer.NewDemoObject(newDemo);
+
+            //Assert
+            Assert.IsTrue(succes);
+            Assert.AreEqual("Boterkoek",stub.demos[2].name);
+        }
     }
 }
