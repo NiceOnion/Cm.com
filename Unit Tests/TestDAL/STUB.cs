@@ -58,7 +58,12 @@ namespace Unit_Tests
 
         public bool NewDemo(DemoDTO demoDTO)
         {
-            throw new NotImplementedException();
+            if (demoDTO.id != null && demoDTO.name != null)
+            {
+                demos.Add(demoDTO);
+                return true;
+            }
+            return false;
         }
 
         public bool SaveDemo(DemoDTO demoObject)

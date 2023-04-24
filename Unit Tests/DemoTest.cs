@@ -1,4 +1,5 @@
 ﻿using BusinessLayer;
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,22 @@ namespace Unit_Tests
             Assert.IsTrue(demo);
             Assert.AreEqual("test", deletedemo.name);
 
+        }
+
+        [TestMethod]
+        public void AddDemo()
+        {
+            //Arrange
+            STUB stub = new STUB();
+            DemoContainer demoContainer = new DemoContainer(stub);
+            DemoDTO newDemo = new DemoDTO("Boterkoek");
+
+            //Act
+            bool succes = demoContainer.NewDemoObject(newDemo);
+
+            //Assert
+            Assert.IsTrue(succes);
+            Assert.AreEqual("Boterkoek",stub.demos[2].name);
         }
     }
 }

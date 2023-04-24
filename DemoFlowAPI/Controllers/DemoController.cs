@@ -11,19 +11,19 @@ namespace DemoFlowAPI.Controllers
     {
         DemoContainer demoContainer = new DemoContainer(new DemoDAL());
 
-
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             // Delete the resource
             var deleteddemo = demoContainer.DeleteDemo(id);
-            // Return a no content response
+            // Return a no content responseinste
             return Ok("Deleted");
         }
 
-        [HttpPost("/add/{id}")]
+        [HttpPost("add")]
         public IActionResult Add([FromBody]DemoData data)
         {
+            Console.WriteLine("A request has been recieved: " + data);
             try
             {
                 demoContainer.NewDemoObject(new DemoDTO(data.DemoName));

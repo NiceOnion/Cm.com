@@ -10,6 +10,7 @@ namespace DataAccessLayer
 {
     public class DemoDAL : SQLConnect ,IDemo
     {
+        public DemoDAL() { InitializeDB(); }
 
         public bool SaveDemo(DemoDTO demoObject)
         {
@@ -92,7 +93,7 @@ namespace DataAccessLayer
                 OpenConnection();
                 string sqlstring = "INSERT INTO Demo(Name) VALUES (@name)";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
-                sqlCommand.Parameters.AddWithValue("@name", demoDTO.name);
+                sqlCommand.Parameters.AddWithValue("name", demoDTO.name);
                 sqlCommand.ExecuteNonQuery();    
                 CloseConnection();
                 return true;
