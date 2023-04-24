@@ -14,6 +14,7 @@ namespace BusinessLayer
         public bool visibility { get;  set; }
         public int id { get;  set; }
         //public Account account { get; private set; }
+        public string Description { get; set; }
 
         public DemoObject(){
 

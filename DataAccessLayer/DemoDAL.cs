@@ -40,14 +40,13 @@ namespace DataAccessLayer
             try
             {
                 OpenConnection();
-                string sqlstring = "UPDATE Demo SET Name = @Name ,Visibility = @Visibility Where ID = @ID";
+                string sqlstring = "UPDATE Demo SET Name = @Name, Visibility = @Visibility, Description = @Description WHERE ID = @ID";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
                 sqlCommand.Parameters.AddWithValue("@ID", demoDTO.Id);
                 sqlCommand.Parameters.AddWithValue("@Name", demoDTO.Name);
                 sqlCommand.Parameters.AddWithValue("@Visibility", demoDTO.Visibility);
-                sqlCommand.ExecuteNonQuery();
-                 
-
+                sqlCommand.Parameters.AddWithValue("@Description", demoDTO.Description);
+                sqlCommand.ExecuteNonQuery();               
             }
             catch (Exception Exception)
             {

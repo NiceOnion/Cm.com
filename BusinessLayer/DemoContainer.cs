@@ -33,6 +33,7 @@ namespace BusinessLayer
             demoDTO.Name= demoObject.name;
             demoDTO.Visibility= demoObject.visibility;
             demoDTO.Id=demoObject.id;
+
             return IDemo.EditDemo(demoDTO);
         }
         public bool SaveDemo(DemoObject demoObject)
