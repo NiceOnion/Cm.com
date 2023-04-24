@@ -1,4 +1,4 @@
-﻿using DataAccessLayer;
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,21 +10,24 @@ namespace BusinessLayer
 {
     public class DemoObject
     {
-        public string name { get; private set; } = "";
-        public bool visibility { get; private set; }
-        public int id { get; private set; }
-        //public Account account { get; private set; }
+        public string Name { get; set; } = "";
+        public bool Visibility { get; set; }
+        public int Id { get; set; }
+        public int AccountId { get; set; }
 
-        public DemoObject(){
+        public DemoObject(){}
 
+        public DemoObject(string name, int accountId)
+        {
+            Name = name;
+            AccountId = accountId;
         }
 
-        public DemoObject(DemoDTO demoDTO) {
-
-            this.name = demoDTO.name;
-            this.visibility = demoDTO.visibility;
-            this.id = demoDTO.id;
-            //this.account = account;
+        public DemoObject(DemoDTO demoDTO)
+        {
+            this.Name = demoDTO.Name;
+            this.Visibility = demoDTO.Visibility;
+            this.Id = demoDTO.Id;
         }
     }
 }

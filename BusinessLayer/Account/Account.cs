@@ -9,9 +9,9 @@ namespace BusinessLayer
 {
     public class Account
     {
-        public int ID { get; private set; }
-        public string Name { get; private set; }
-        public string Password { get; private set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Password { get; set; }
 
         public Account(int id, string name, string password)
         {
@@ -26,6 +26,8 @@ namespace BusinessLayer
             this.Name = accountDTO.Name;
             this.Password = accountDTO.Password;
         }
+
+        public Account() { }
 
         public AccountDTO ToAccountDTO()
         {

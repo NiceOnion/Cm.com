@@ -9,30 +9,26 @@ using InterfaceLayer;
 
 namespace Unit_Tests
 {
-    internal class STUB:IDemo
+    internal class STUB : IDemo
     {
-        internal List<AccountDTO> Accounts = new () { new AccountDTO(1, "TestName1", "TestPassword1"), new AccountDTO(2, "TestName2", "TestPassword 2"), new AccountDTO(3, "TestName3", "TestPassword3")};
+        internal List<AccountDTO> Accounts = new() { new AccountDTO(1, "TestName1", "TestPassword1"), new AccountDTO(2, "TestName2", "TestPassword 2"), new AccountDTO(3, "TestName3", "TestPassword3") };
         internal List<DemoDTO> demos = new List<DemoDTO>();
 
         public STUB()
         {
-            demos.Add(new DemoDTO
+            demos.Add(new DemoDTO("test", true)
             {
-                id = 1,
-                name = "test",
-                visibility = true
+                Id = 1,
             });
-            demos.Add(new DemoDTO
+            demos.Add(new DemoDTO("test2", true)
             {
-                id = 2,
-                name = "test2",
-                visibility = true
+                Id = 2
             });
         }
 
         public bool DeleteDemo(int id)
         {
-            DemoDTO demoDTO = demos.FirstOrDefault(x => x.id == id);
+            DemoDTO demoDTO = demos.FirstOrDefault(x => x.Id == id);
             var result = demos.Remove(demoDTO);
             if (result == true)
             {
@@ -41,14 +37,15 @@ namespace Unit_Tests
             return false;
         }
 
-        public bool EditDemo(int DemoID)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<DemoDTO> GetDemoList()
         {
             return demos;
+        }
+
+        public List<DemoDTO> GetDemosOfUser(int userId)
+        {
+            throw new NotImplementedException();
         }
 
         public DemoDTO GetOneDemo(int ID)
@@ -66,7 +63,12 @@ namespace Unit_Tests
             return false;
         }
 
-        public bool SaveDemo(DemoDTO demoObject)
+        public bool SaveDemo(DemoDTO demoDTO)
+        {
+            demos.Add(demoDTO);
+            return true;
+        }
+        public bool EditDemo(int DemoID)
         {
             throw new NotImplementedException();
         }

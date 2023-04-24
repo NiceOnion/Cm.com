@@ -24,6 +24,7 @@ namespace DataAccessLayer
                         {
                             CMD.Parameters.AddWithValue("@name", accountDTO.Name);
                             CMD.Parameters.AddWithValue("@password", accountDTO.Password);
+                            CMD.ExecuteScalar();
                         }
                     }
                     CloseConnection();
@@ -83,7 +84,7 @@ namespace DataAccessLayer
             }
         }
 
-        public AccountDTO GetByLogin(string name, string password)
+        public AccountDTO Login(AccountDTO accountDTO)
         {
             try
             {
@@ -97,8 +98,8 @@ namespace DataAccessLayer
                         string query = "SELECT * FROM Account WHERE Name=@name AND Password=@password";
 
                         SqlCommand spelerCommand = new(query, (SqlConnection)DbConnection);
-                        spelerCommand.Parameters.AddWithValue("@name", name);
-                        spelerCommand.Parameters.AddWithValue("@password", password);
+                        spelerCommand.Parameters.AddWithValue("@name", accountDTO.Name);
+                        spelerCommand.Parameters.AddWithValue("@password", accountDTO.Password);
                         using (SqlDataReader reader = spelerCommand.ExecuteReader())
                         {
                             while (reader.Read())

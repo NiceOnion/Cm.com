@@ -33,15 +33,15 @@ namespace BusinessLayer
             }
         }
 
-        public Account GetByLogin(string name, string password)
+        public int Login(Account account)
         {
             try
             {
-                return new(iAccount.GetByLogin(name, password));
+                return iAccount.Login(account.ToAccountDTO()).ID;
             }
             catch
             {
-                return null;
+                return 0;
             }
         }
     }

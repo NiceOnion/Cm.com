@@ -1,4 +1,4 @@
-﻿using DataAccessLayer;
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +11,7 @@ namespace InterfaceLayer
     {
         public bool NewDemo(DemoDTO demoDTO);
         public DemoDTO GetOneDemo(int ID);
+        public List<DemoDTO> GetDemosOfUser(int userID);
         public bool EditDemo(int DemoID);
         public bool SaveDemo(DemoDTO demoObject);
        public bool DeleteDemo(int id);
