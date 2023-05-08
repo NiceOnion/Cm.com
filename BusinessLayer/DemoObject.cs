@@ -30,7 +30,7 @@ namespace BusinessLayer
             this.Name = demoDTO.Name;
             this.Visibility = demoDTO.Visibility;
             this.Id = demoDTO.Id;
-            //this.account = account;
+            this.Description = demoDTO.Description;
         }
     }
 }

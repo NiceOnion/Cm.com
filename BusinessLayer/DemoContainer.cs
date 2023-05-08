@@ -29,7 +29,8 @@ namespace BusinessLayer
 
         public List<DemoObject> GetDemosOfUser(int userID)
         {
-            return IDemo.GetDemosOfUser(userID).ConvertAll(demoDTO => new DemoObject(demoDTO)); ;
+            return IDemo.GetDemosOfUser(userID).ConvertAll(demoDTO => new DemoObject(demoDTO)); 
+            
         }
         public bool EditDemo(DemoObject demoObject)
         {
