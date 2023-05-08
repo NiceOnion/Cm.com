@@ -32,13 +32,13 @@ namespace DemoFlowAPI.Controllers
         public IActionResult Delete(int id)
         {
             // Delete the resource
-            var deleteddemo = demoContainer.DeleteDemo(id);
+            var result = demoContainer.DeleteDemo(id);
             // Return a no content response
-            if ( deleteddemo== true)
+            if (result == true)
             {
-                return Ok("Deleted");
+                return Ok(result);
             }
-            return BadRequest();    
+            return BadRequest();
         }
 
         [HttpPut("{id}")]

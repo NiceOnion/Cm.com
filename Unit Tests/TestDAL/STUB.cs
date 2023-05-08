@@ -74,10 +74,5 @@ namespace Unit_Tests
              demos.Add(demoDTO);
             return true;
         }
-
-        public List<DemoDTO> GetDemosOfUser(int userID)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
