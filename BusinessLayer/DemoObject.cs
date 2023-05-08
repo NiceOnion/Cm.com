@@ -10,7 +10,7 @@ namespace BusinessLayer
 {
     public class DemoObject
     {
-        public string Name { get; set; } = "";
+        public string Name { get; set; } 
         public bool Visibility { get; set; }
         public int Id { get; set; }
         public int AccountId { get; set; }

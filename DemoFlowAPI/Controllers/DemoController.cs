@@ -34,7 +34,11 @@ namespace DemoFlowAPI.Controllers
             // Delete the resource
             var deleteddemo = demoContainer.DeleteDemo(id);
             // Return a no content response
-            return Ok("Deleted");
+            if ( deleteddemo== true)
+            {
+                return Ok("Deleted");
+            }
+            return BadRequest();    
         }
         [HttpPost]
         public IActionResult Save(DemoObject demoObject)
