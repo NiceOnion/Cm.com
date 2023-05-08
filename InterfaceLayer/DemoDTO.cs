@@ -6,13 +6,9 @@ namespace DataAccessLayer
     [DataContract]
     public class DemoDTO
     {
-        [DataMember]
         public string Name { get; set; }
-        [DataMember]
         public bool Visibility { get; set; }
-        [DataMember]
         public int AccountID { get; set; }
-        [DataMember]
         public int Id { get; set; }
         public string Description { get; set; }
 
@@ -39,6 +35,10 @@ namespace DataAccessLayer
             Name = name;
             Visibility = visibility;
             Description = description;
+        }
+
+        public DemoDTO()
+        {
         }
     }
 }

@@ -36,7 +36,7 @@ namespace DataAccessLayer
             return true;
         }
         public bool EditDemo(DemoDTO demoDTO)
-        {            
+        {
             try
             {
                 OpenConnection();
@@ -46,7 +46,7 @@ namespace DataAccessLayer
                 sqlCommand.Parameters.AddWithValue("@Name", demoDTO.Name);
                 sqlCommand.Parameters.AddWithValue("@Visibility", demoDTO.Visibility);
                 sqlCommand.Parameters.AddWithValue("@Description", demoDTO.Description);
-                sqlCommand.ExecuteNonQuery();               
+                sqlCommand.ExecuteNonQuery();
             }
             catch (Exception Exception)
             {
@@ -67,7 +67,7 @@ namespace DataAccessLayer
             try
             {
                 OpenConnection();
-                string sqlstring = "SELECT Id, Name, AccountID FROM Demo WHERE Id = @id";
+                string sqlstring = "SELECT Id, Name, Description, AccountID, Visibility FROM Demo WHERE Id = @id";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
                 sqlCommand.Parameters.AddWithValue("id", DemoID);
                 using (SqlDataReader reader = sqlCommand.ExecuteReader())
@@ -76,9 +76,11 @@ namespace DataAccessLayer
                     {
                         while (reader.Read())
                         {
-                            demoDTO = new DemoDTO(reader.GetString(1), reader.GetInt32(2))
+                            demoDTO = new DemoDTO(reader.GetString(1), reader.GetInt32(3))
                             {
-                                Id = reader.GetInt32(0)
+                                Id = reader.GetInt32(0),
+                                Description = reader["Description"].ToString(),
+                                Visibility = (bool)reader["Visibility"]
                             };
                         }
                     }
@@ -98,7 +100,7 @@ namespace DataAccessLayer
                 string sqlstring = "INSERT INTO Demo(Name) VALUES (@name)";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
                 sqlCommand.Parameters.AddWithValue("@name", demoDTO.Name);
-                sqlCommand.ExecuteNonQuery();    
+                sqlCommand.ExecuteNonQuery();
                 CloseConnection();
                 return true;
             }
@@ -164,13 +166,18 @@ namespace DataAccessLayer
             try
             {
                 OpenConnection();
-                var command = new SqlCommand("SELECT ID, Name, Visibility, AccountID FROM Demo WHERE Visibility = 1 AND AccountID = @accountId", DbConnection);
+                var command = new SqlCommand("SELECT ID, Name, Visibility, Description, AccountID FROM Demo WHERE Visibility = 1 AND AccountID = @accountId", DbConnection);
                 command.Parameters.AddWithValue("accountId", userId);
 
                 SqlDataReader demoReader = command.ExecuteReader();
                 while (demoReader.Read())
                 {
-                    result.Add(new DemoDTO(demoReader.GetString(1)) { Id = demoReader.GetInt32(0) });
+                    var demo = new DemoDTO(demoReader.GetString(1))
+                    {
+                        Id = demoReader.GetInt32(0),
+                        Description = demoReader["Description"].ToString()
+                    };
+                    result.Add(demo);
                 }
             }
             catch (Exception e)
