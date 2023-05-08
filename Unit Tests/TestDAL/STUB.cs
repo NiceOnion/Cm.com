@@ -11,7 +11,7 @@ namespace Unit_Tests
 {
     internal class STUB : IDemo
     {
-        internal List<AccountDTO> Accounts = new() { new AccountDTO(1, "TestName1", "TestPassword1"), new AccountDTO(2, "TestName2", "TestPassword 2"), new AccountDTO(3, "TestName3", "TestPassword3") };
+        internal List<AccountDTO> Accounts = new() { new AccountDTO(1, "TestName1", "TestPassword1"), new AccountDTO(2, "TestName2", "TestPassword 2"), new AccountDTO(3, "TestName3", "5465737450617373776f72643353797374656d2e427974655b5d") };
         internal List<DemoDTO> demos = new List<DemoDTO>();
 
         public STUB()
