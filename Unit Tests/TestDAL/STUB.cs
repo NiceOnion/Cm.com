@@ -19,10 +19,14 @@ namespace Unit_Tests
             demos.Add(new DemoDTO("test", true)
             {
                 Id = 1,
+                Name = "test",
+                Visibility = true
             });
             demos.Add(new DemoDTO("test2", true)
             {
-                Id = 2
+                Id = 2,
+                Name = "test2",
+                Visibility = true
             });
         }
 
@@ -63,7 +67,15 @@ namespace Unit_Tests
             demos.Add(demoDTO);
             return true;
         }
-        public bool EditDemo(int DemoID)
+        public bool EditDemo(DemoDTO demoDTO)
+        {
+            DemoDTO demo = demos.First(x => x.Id == demoDTO.Id);
+            var result = demos.Remove(demo);
+             demos.Add(demoDTO);
+            return true;
+        }
+
+        public List<DemoDTO> GetDemosOfUser(int userID)
         {
             throw new NotImplementedException();
         }
