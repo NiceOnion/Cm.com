@@ -142,7 +142,7 @@ namespace Unit_Tests
 
             Assert.AreEqual(expectedID, actualID);
             Assert.AreEqual(expectedName, actualName);
-            Assert.AreEqual(expectedPassword, actualPassword);
+            Assert.AreEqual(expectedPassword.HashString(), actualPassword);
         }
 
         [TestMethod]
@@ -178,28 +178,24 @@ namespace Unit_Tests
             Account account = new(expectedID, expectedName, expectedPassword);
 
             //Act
-            Account result = container.Login(account);
+            int result = container.Login(account);
 
             //Assert
             string actualNewName = stub.newName;
             string actualNewPassword = stub.newPassword;
-
-            int resultID = result.ID;
-            string resultName = result.Name;
 
             int actualID = stub.Accounts[2].ID;
             string actualName = stub.Accounts[2].Name;
             string actualPassword = stub.Accounts[2].Password;
 
             Assert.AreEqual(expectedName, actualNewName);
-            Assert.AreEqual(expectedPassword, actualNewPassword);
+            Assert.AreEqual(expectedPassword.HashString(), actualNewPassword);
 
-            Assert.AreEqual(expectedID, resultID);
-            Assert.AreEqual(expectedName, resultName);
+            Assert.AreEqual(expectedID, result);
 
             Assert.AreEqual(expectedID, actualID);
             Assert.AreEqual(expectedName, actualName);
-            Assert.AreEqual(expectedPassword, actualPassword);
+            Assert.AreEqual(expectedPassword.HashString(), actualPassword);
         }
 
         [TestMethod]
@@ -208,6 +204,7 @@ namespace Unit_Tests
             //Arrange
             string expectedName = "Wrong";
             string expectedPassword = "Wrong";
+            int expectedID = 0;
 
             Account_Test_DAL stub = new();
             AccountContainer container = new(stub);
@@ -215,16 +212,16 @@ namespace Unit_Tests
             Account account = new(0, expectedName, expectedPassword);
 
             //Act
-            Account result = container.Login(account);
+            int result = container.Login(account);
 
             //Assert
             string actualNewName = stub.newName;
             string actualNewPassword = stub.newPassword;
 
-            Assert.IsNull(result);
+            Assert.AreEqual(expectedID, result);
 
             Assert.AreEqual(expectedName, actualNewName);
-            Assert.AreEqual(expectedPassword, actualNewPassword);
+            Assert.AreEqual(expectedPassword.HashString(), actualNewPassword);
         }
     }
 }

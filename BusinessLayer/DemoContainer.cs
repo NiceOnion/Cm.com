@@ -29,16 +29,23 @@ namespace BusinessLayer
 
         public List<DemoObject> GetDemosOfUser(int userID)
         {
-            return IDemo.GetDemosOfUser(userID).ConvertAll(demoDTO => new DemoObject(demoDTO)); ;
+            return IDemo.GetDemosOfUser(userID).ConvertAll(demoDTO => new DemoObject(demoDTO)); 
+            
         }
-        public bool EditDemo(int DemoID)
+        public bool EditDemo(DemoObject demoObject)
         {
-            return EditDemo(DemoID);
+            DemoDTO demoDTO = new DemoDTO();
+            demoDTO.Name= demoObject.Name;
+            demoDTO.Visibility= demoObject.Visibility;
+            demoDTO.Id=demoObject.Id;
+            demoDTO.Description = demoObject.Description;
+            return IDemo.EditDemo(demoDTO);
         }
         public bool SaveDemo(DemoObject demoObject)
         {
             DemoDTO demoDTO = new DemoDTO(demoObject.Name);
             demoDTO.Visibility = demoObject.Visibility;
+            demoDTO.Id = demoObject.Id;
             IDemo.SaveDemo(demoDTO);
             return true;
         }

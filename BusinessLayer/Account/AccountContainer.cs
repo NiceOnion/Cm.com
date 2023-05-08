@@ -37,6 +37,7 @@ namespace BusinessLayer
         {
             try
             {
+                account.Password = account.Password.HashString();
                 return iAccount.Login(account.ToAccountDTO()).ID;
             }
             catch

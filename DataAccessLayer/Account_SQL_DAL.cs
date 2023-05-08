@@ -95,7 +95,7 @@ namespace DataAccessLayer
                     string _password = null;
                     using (DbConnection)
                     {
-                        string query = "SELECT * FROM Account WHERE Name=@name AND Password=@password";
+                        string query = "SELECT * FROM Account WHERE Name=@name AND Password=@password COLLATE SQL_Latin1_General_CP1_CS_AS";
 
                         SqlCommand spelerCommand = new(query, (SqlConnection)DbConnection);
                         spelerCommand.Parameters.AddWithValue("@name", accountDTO.Name);
