@@ -1,7 +1,11 @@
+<<<<<<< HEAD:InterfaceLayer/DemoDTO.cs
 
 ﻿using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 namespace DataAccessLayer
+=======
+namespace InterfaceLayer.DTO
+>>>>>>> FR14:InterfaceLayer/DTO/DemoDTO.cs
 {
     [DataContract]
     public class DemoDTO
@@ -10,11 +14,14 @@ namespace DataAccessLayer
         public bool Visibility { get; set; }
         public int AccountID { get; set; }
         public int Id { get; set; }
+<<<<<<< HEAD:InterfaceLayer/DemoDTO.cs
         public string Description { get; set; }
+=======
+>>>>>>> FR14:InterfaceLayer/DTO/DemoDTO.cs
 
-        public DemoDTO(string name) 
+        public DemoDTO(string name)
         {
-            this.Name = name;
+            Name = name;
         }
         public DemoDTO(string name, int accountID)
         {
