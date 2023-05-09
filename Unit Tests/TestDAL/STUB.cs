@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer;
-using DataAccessLayer;
 using InterfaceLayer;
+using InterfaceLayer.DTO;
 
 namespace Unit_Tests
 {

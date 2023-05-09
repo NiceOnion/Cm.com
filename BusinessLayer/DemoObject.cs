@@ -1,4 +1,5 @@
-using DataAccessLayer;
+using InterfaceLayer;
+using InterfaceLayer.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace BusinessLayer
 {
     public class DemoObject
     {
-        public string Name { get; set; } = "";
-        public bool Visibility { get; set; }
+        public string Name { get; set; } = "Demo";
+        public bool Visibility { get; set; } = true;
         public int Id { get; set; }
         public int AccountId { get; set; }
 
@@ -28,6 +29,11 @@ namespace BusinessLayer
             this.Name = demoDTO.Name;
             this.Visibility = demoDTO.Visibility;
             this.Id = demoDTO.Id;
+        }
+
+        public Flow GetFlow(IFlow iflow, int id)
+        {
+            return new Flow(iflow.GetFlow(id));
         }
     }
 }

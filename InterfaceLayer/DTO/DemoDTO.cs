@@ -1,15 +1,15 @@
-namespace DataAccessLayer
+namespace InterfaceLayer.DTO
 {
     public class DemoDTO
     {
-        public string Name { get; set; }    
-        public bool Visibility { get; set; }  
+        public string Name { get; set; }
+        public bool Visibility { get; set; }
         public int AccountID { get; set; }
-        public int Id { get; set; } 
+        public int Id { get; set; }
 
-        public DemoDTO(string name) 
+        public DemoDTO(string name)
         {
-            this.Name = name;
+            Name = name;
         }
         public DemoDTO(string name, int accountID)
         {
