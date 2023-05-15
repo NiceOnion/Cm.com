@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using InterfaceLayer.DTO;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DataAccessLayer
 {
@@ -229,6 +230,49 @@ namespace DataAccessLayer
         public bool EditDemo(int DemoID)
         {
             throw new NotImplementedException();
+        }
+
+        public List<DemoDTO> GetArchivedDemosOfUser(int userId)
+        {
+            var demos = new List<DemoDTO>();
+            try
+            {
+                OpenConnection();
+                var getArchivedCommand = new SqlCommand("SELECT Id, Name, Description, Visibility, AccountID FROM Demo WHERE AccountID = @uid and Visibility = 0", DbConnection);
+                getArchivedCommand.Parameters.AddWithValue("uid", userId);
+                var getArchivedReader = getArchivedCommand.ExecuteReader();
+                while (getArchivedReader.Read())
+                {
+                    demos.Add(new DemoDTO(getArchivedReader.GetString(1))
+                    {
+                        Id = getArchivedReader.GetInt32(0),
+                        Description = getArchivedReader.GetString(2),
+                        Visibility = getArchivedReader.GetBoolean(3),
+                        AccountID = getArchivedReader.GetInt32(4)
+                    });
+                }
+            } catch (Exception e)
+            {
+                throw e;
+            }
+            finally { CloseConnection(); }
+            return demos;
+        }
+
+        public bool ReinstateDemo(int demoId)
+        {
+            bool result = false;
+            try
+            {
+                OpenConnection();
+                var reinstateDemoCommand = new SqlCommand("UPDATE Demo SET Visibility = 1 WHERE Id = @id", DbConnection);
+                reinstateDemoCommand.Parameters.AddWithValue("id", demoId);
+                if (reinstateDemoCommand.ExecuteNonQuery() > 0) result = true;
+            } catch (Exception e)
+            {
+                throw e;
+            } finally { CloseConnection(); }
+            return result;
         }
     }
 }
