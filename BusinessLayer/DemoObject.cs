@@ -38,5 +38,10 @@ namespace BusinessLayer
         {
             return new Flow(iflow.GetFlow(id));
         }
+
+        public bool AddFlow(IFlow iflow, Flow flow)
+        {
+            return iflow.AddFlow(this.Id, flow.toDTO());
+        }
     }
 }

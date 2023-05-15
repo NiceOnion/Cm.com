@@ -25,12 +25,12 @@ namespace DemoFlowAPI.Controllers
             return currentFlow;
         }
 
-        //[HttpPost("Create")]
-        //public IActionResult Create([FromBody]Flow newFlow)
-        //{
-        //    var result = 
-        //    return Ok(result);
-        //} 
+        [HttpPost("Add")]
+        public IActionResult Add(int demoId, [FromBody]Flow newFlow)
+        {
+            var result = new DemoContainer(demoDAL).GetOneDemoObject(demoId).AddFlow(new FlowDAL(), newFlow);
+            return Ok(result);
+        }
 
         [HttpPut("{flowId}/Edit")]
         public IActionResult Edit(int demoId, int flowId, [FromBody]Flow flow)

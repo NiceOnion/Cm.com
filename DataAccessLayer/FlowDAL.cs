@@ -65,5 +65,25 @@ namespace DataAccessLayer
             finally { CloseConnection(); }
             return flow;
         }
+
+        public bool AddFlow(int demoId, FlowDTO flowDTO)
+        {
+            bool result = false;
+            try
+            {
+                OpenConnection();
+                var addFlowCommand = new SqlCommand("INSERT INTO Flow (Name, Description, Json, DemoID) VALUES (@name, @desc, @json, @did)", DbConnection);
+                addFlowCommand.Parameters.AddWithValue("id", flowDTO.Id);
+                addFlowCommand.Parameters.AddWithValue("name", flowDTO.Name);
+                addFlowCommand.Parameters.AddWithValue("desc", flowDTO.Description);
+                addFlowCommand.Parameters.AddWithValue("json", flowDTO.Json);
+                addFlowCommand.Parameters.AddWithValue("did", demoId);
+                if (addFlowCommand.ExecuteNonQuery() > 0) result = true;
+            } catch (Exception e)
+            {
+                throw e;
+            } finally { CloseConnection(); }
+            return result;
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace InterfaceLayer
     {
         public FlowDTO GetFlow(int id);
         public bool Edit(FlowDTO flowDTO);
+        public bool AddFlow(int demoId, FlowDTO flowDTO);
     }
 }
