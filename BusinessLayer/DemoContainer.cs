@@ -17,9 +17,9 @@ namespace BusinessLayer
             IDemo = iDemo;
         }
 
-        public bool NewDemoObject(string name, int accountID)
+        public bool NewDemoObject(DemoObject demoObject)
         {
-            return IDemo.NewDemo(new DemoDTO(name, accountID));
+            return IDemo.NewDemo(new DemoDTO(demoObject.Name, demoObject.Visibility, demoObject.AccountId, demoObject.Id,demoObject.Description));
         }
 
         public DemoObject GetOneDemoObject(int ID)
@@ -29,23 +29,16 @@ namespace BusinessLayer
 
         public List<DemoObject> GetDemosOfUser(int userID)
         {
-            return IDemo.GetDemosOfUser(userID).ConvertAll(demoDTO => new DemoObject(demoDTO)); 
-            
+            return IDemo.GetDemosOfUser(userID).ConvertAll(demoDTO => new DemoObject(demoDTO)); ;
         }
-        public bool EditDemo(DemoObject demoObject)
+        public bool EditDemo(int DemoID)
         {
-            DemoDTO demoDTO = new DemoDTO();
-            demoDTO.Name= demoObject.Name;
-            demoDTO.Visibility= demoObject.Visibility;
-            demoDTO.Id=demoObject.Id;
-            demoDTO.Description = demoObject.Description;
-            return IDemo.EditDemo(demoDTO);
+            return EditDemo(DemoID);
         }
         public bool SaveDemo(DemoObject demoObject)
         {
             DemoDTO demoDTO = new DemoDTO(demoObject.Name);
             demoDTO.Visibility = demoObject.Visibility;
-            demoDTO.Id = demoObject.Id;
             IDemo.SaveDemo(demoDTO);
             return true;
         }
@@ -63,6 +56,11 @@ namespace BusinessLayer
             }
 
             return demoList;
+        }
+
+        public DemoObject GetOneDemoObjectByName(string name)
+        {
+            return new DemoObject(IDemo.GetOneDemoByName(name));
         }
     }
 }

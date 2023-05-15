@@ -22,6 +22,12 @@ namespace DemoFlowAPI.Controllers
             return demoContainer.GetOneDemoObject(id);
         }
 
+        [HttpGet("SingleByName/{name}", Name = "GetDemoByName")]
+        public DemoObject GetDemoByName(string name)
+        {
+            return demoContainer.GetOneDemoObjectByName(name);
+        }
+
         [HttpGet("{userId}")]
         public List<DemoObject> GetDemosOfUser(int userId)
         {
@@ -52,9 +58,16 @@ namespace DemoFlowAPI.Controllers
             }
 
             // Try to update the demo object in the database
-            bool result = demoContainer.EditDemo(demoobject);
+            bool result = demoContainer.EditDemo(demoobject.Id);
             if (result) return Ok(result);
             else return NoContent();
+        }
+
+        [HttpPost("add")]
+        public IActionResult AddDemo([FromBody]DemoObject demoObject)
+        {
+            if( demoContainer.NewDemoObject(demoObject)) return Ok(demoObject);
+            else return BadRequest();
         }
 
         [HttpPost]
