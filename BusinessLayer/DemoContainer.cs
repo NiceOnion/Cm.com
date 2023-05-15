@@ -62,5 +62,14 @@ namespace BusinessLayer
         {
             return new DemoObject(IDemo.GetOneDemoByName(name));
         }
+
+        public List<DemoObject> GetArchivedDemosOfUser(int userId)
+        {
+            return IDemo.GetArchivedDemosOfUser(userId).ConvertAll(demoDTO => new DemoObject(demoDTO));
+        }
+        public bool ReinstateDemo(int demoId)
+        {
+            return IDemo.ReinstateDemo(demoId);
+        }
     }
 }

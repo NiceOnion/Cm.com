@@ -17,5 +17,7 @@ namespace InterfaceLayer
        public bool DeleteDemo(int id);
         public List<DemoDTO> GetDemoList();
         DemoDTO GetOneDemoByName(string demoName);
+        public List<DemoDTO> GetArchivedDemosOfUser(int userId);
+        public bool ReinstateDemo(int demoId);
     }
 }

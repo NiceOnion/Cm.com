@@ -80,5 +80,17 @@ namespace DemoFlowAPI.Controllers
             }
             return Ok(result);
         }
+
+        [HttpGet("{userId}/Archived")]
+        public List<DemoObject> Archived(int userId)
+        {
+            return demoContainer.GetArchivedDemosOfUser(userId);
+        }
+
+        [HttpPut("{id}/Reinstate")]
+        public bool Reinstate(int id)
+        {
+            return demoContainer.ReinstateDemo(id);
+        }
     }
 }
