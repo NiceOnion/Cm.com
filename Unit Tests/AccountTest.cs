@@ -102,11 +102,11 @@ namespace Unit_Tests
 
             Assert.AreEqual(expectedID, actualID);
             Assert.AreEqual(expectedName, actualName);
-            Assert.AreEqual(expectedPassword, actualPassword);
+            Assert.AreEqual(expectedPassword.HashString(), actualPassword);
 
             Assert.AreEqual(expectedID, actualNewID);
             Assert.AreEqual(expectedName, actualNewName);
-            Assert.AreEqual(expectedPassword, actualNewPassword);
+            Assert.AreEqual(expectedPassword.HashString(), actualNewPassword);
 
             Assert.AreEqual(expectedCount, actualCount);
         }

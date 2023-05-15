@@ -18,6 +18,7 @@ namespace BusinessLayer
 
         public bool Create(Account account)
         {
+            account.Password = account.Password.HashString();
             return iAccount.Create(account.ToAccountDTO());
         }
 
