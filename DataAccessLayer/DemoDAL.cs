@@ -93,14 +93,51 @@ namespace DataAccessLayer
             return demoDTO;
         }
 
+        public DemoDTO GetOneDemoByName(string demoName)
+        {
+            DemoDTO demoDTO = null;
+
+            try
+            {
+                OpenConnection();
+                string sqlstring = "SELECT Id, Name, Description, AccountID, Visibility FROM Demo WHERE Name = @name";
+                SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
+                sqlCommand.Parameters.AddWithValue("name", demoName);
+                using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            demoDTO = new DemoDTO(reader.GetString(1), reader.GetInt32(3))
+                            {
+                                Id = reader.GetInt32(0),
+                                Description = reader["Description"].ToString(),
+                                Visibility = (bool)reader["Visibility"]
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception e) { throw new Exception(e.Message); }
+            finally { CloseConnection(); }
+
+            return demoDTO;
+        }
+
         public bool NewDemo(DemoDTO demoDTO)
         {
             try
             {
                 OpenConnection();
-                string sqlstring = "INSERT INTO Demo(Name) VALUES (@name)";
+                string sqlstring = "INSERT INTO Demo(Name, Type, Visibility, AccountID, Description) VALUES (@name,@type, @visibility, @accountId, @description)";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
                 sqlCommand.Parameters.AddWithValue("@name", demoDTO.Name);
+                sqlCommand.Parameters.AddWithValue("@type", "sms");
+                sqlCommand.Parameters.AddWithValue("@visibility", false);
+                sqlCommand.Parameters.AddWithValue("@accountId", demoDTO.AccountID);
+                sqlCommand.Parameters.AddWithValue("@description", demoDTO.Description);
+
                 sqlCommand.ExecuteNonQuery();
                 CloseConnection();
                 return true;
@@ -114,7 +151,7 @@ namespace DataAccessLayer
                 OpenConnection();
                 string sqlstring = " update Demo set Visibility='False' Where ID=@ID";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
-                sqlCommand.Parameters.AddWithValue("@ID", id);
+                sqlCommand.Parameters.AddWithValue("ID", id);
                 return sqlCommand.ExecuteNonQuery() > 0;
 
             }
@@ -187,6 +224,11 @@ namespace DataAccessLayer
             }
             finally { CloseConnection(); }
             return result;
+        }
+
+        public bool EditDemo(int DemoID)
+        {
+            throw new NotImplementedException();
         }
     }
 }
