@@ -113,7 +113,7 @@ namespace DataAccessLayer
                 OpenConnection();
                 string sqlstring = " update Demo set Visibility='False' Where ID=@ID";
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
-                sqlCommand.Parameters.AddWithValue("@ID", id);
+                sqlCommand.Parameters.AddWithValue("ID", id);
                 return sqlCommand.ExecuteNonQuery() > 0;
 
             }
