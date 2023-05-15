@@ -251,7 +251,8 @@ namespace DataAccessLayer
                         AccountID = getArchivedReader.GetInt32(4)
                     });
                 }
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 throw e;
             }
@@ -268,10 +269,35 @@ namespace DataAccessLayer
                 var reinstateDemoCommand = new SqlCommand("UPDATE Demo SET Visibility = 1 WHERE Id = @id", DbConnection);
                 reinstateDemoCommand.Parameters.AddWithValue("id", demoId);
                 if (reinstateDemoCommand.ExecuteNonQuery() > 0) result = true;
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 throw e;
-            } finally { CloseConnection(); }
+            }
+            finally { CloseConnection(); }
+            return result;
+        }
+
+        public List<FlowDTO> GetFlowsOfDemo(int id)
+        {
+            var result = new List<FlowDTO>();
+            try
+            {
+                OpenConnection();
+                var getFlowsOFDemoCommand = new SqlCommand("SELECT ID, Name, Description, Json, DemoID FROM Flow WHERE DemoID = @id", DbConnection);
+                getFlowsOFDemoCommand.Parameters.AddWithValue("id", id);
+                var getFlowsOFDemoReader = getFlowsOFDemoCommand.ExecuteReader();
+                while (getFlowsOFDemoReader.Read())
+                {
+                    result.Add(new FlowDTO(getFlowsOFDemoReader.GetInt32(0), getFlowsOFDemoReader.GetString(1),
+                        getFlowsOFDemoReader.GetString(2), getFlowsOFDemoReader.GetString(3)));
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally { CloseConnection(); }
             return result;
         }
     }

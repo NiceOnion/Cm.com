@@ -64,9 +64,9 @@ namespace DemoFlowAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult AddDemo([FromBody]DemoObject demoObject)
+        public IActionResult AddDemo([FromBody] DemoObject demoObject)
         {
-            if( demoContainer.NewDemoObject(demoObject)) return Ok(demoObject);
+            if (demoContainer.NewDemoObject(demoObject)) return Ok(demoObject);
             else return BadRequest();
         }
 
@@ -91,6 +91,12 @@ namespace DemoFlowAPI.Controllers
         public bool Reinstate(int id)
         {
             return demoContainer.ReinstateDemo(id);
+        }
+
+        [HttpGet("{id}/flows")]
+        public List<Flow> getFlowsOfDemo(int id)
+        {
+            return demoContainer.GetFlowsOfDemo(id);
         }
     }
 }

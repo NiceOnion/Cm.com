@@ -19,5 +19,6 @@ namespace InterfaceLayer
         DemoDTO GetOneDemoByName(string demoName);
         public List<DemoDTO> GetArchivedDemosOfUser(int userId);
         public bool ReinstateDemo(int demoId);
+        public List<FlowDTO> GetFlowsOfDemo(int id);
     }
 }

@@ -63,6 +63,11 @@ namespace BusinessLayer
             return new DemoObject(IDemo.GetOneDemoByName(name));
         }
 
+        public List<Flow> GetFlowsOfDemo(int id)
+        {
+            return IDemo.GetFlowsOfDemo(id).ConvertAll(flowDTO => new Flow(flowDTO));
+        }
+
         public List<DemoObject> GetArchivedDemosOfUser(int userId)
         {
             return IDemo.GetArchivedDemosOfUser(userId).ConvertAll(demoDTO => new DemoObject(demoDTO));
