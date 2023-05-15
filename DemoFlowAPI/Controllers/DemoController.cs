@@ -22,6 +22,12 @@ namespace DemoFlowAPI.Controllers
             return demoContainer.GetOneDemoObject(id);
         }
 
+        [HttpGet("SingleByName/{name}", Name = "GetDemoByName")]
+        public DemoObject GetDemoByName(string name)
+        {
+            return demoContainer.GetOneDemoObjectByName(name);
+        }
+
         [HttpGet("{userId}")]
         public List<DemoObject> GetDemosOfUser(int userId)
         {
@@ -32,9 +38,13 @@ namespace DemoFlowAPI.Controllers
         public IActionResult Delete(int id)
         {
             // Delete the resource
-            var deleteddemo = demoContainer.DeleteDemo(id);
+            var result = demoContainer.DeleteDemo(id);
             // Return a no content response
-            return Ok("Deleted");
+            if (result == true)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
         }
 
         [HttpPut("{id}")]
@@ -48,9 +58,16 @@ namespace DemoFlowAPI.Controllers
             }
 
             // Try to update the demo object in the database
-            bool result = demoContainer.EditDemo(demoobject);
+            bool result = demoContainer.EditDemo(demoobject.Id);
             if (result) return Ok(result);
             else return NoContent();
+        }
+
+        [HttpPost("add")]
+        public IActionResult AddDemo([FromBody]DemoObject demoObject)
+        {
+            if( demoContainer.NewDemoObject(demoObject)) return Ok(demoObject);
+            else return BadRequest();
         }
 
         [HttpPost]

@@ -11,6 +11,7 @@ namespace DataAccessLayer
 {
     public class Account_SQL_DAL : SQLConnect, IAccount
     {
+        public Account_SQL_DAL() { InitializeDB(); }
         public bool Create(AccountDTO accountDTO)
         {
             try
@@ -56,17 +57,20 @@ namespace DataAccessLayer
                     {
                         string query = "SELECT * FROM Account WHERE ID=@id";
 
-                        SqlCommand spelerCommand = new(query, (SqlConnection)DbConnection);
-                        spelerCommand.Parameters.AddWithValue("@id", id);
-                        using (SqlDataReader reader = spelerCommand.ExecuteReader())
+                        using (SqlCommand sqlCommand = new(query, (SqlConnection)DbConnection))
                         {
-                            while (reader.Read())
+                            sqlCommand.Parameters.AddWithValue("@id", id);
+                            using (SqlDataReader reader = sqlCommand.ExecuteReader())
                             {
-                                _id = (int)reader["ID"];
-                                _name = (string)reader["Name"];
-                                _password = (string)reader["Password"];
+                                while (reader.Read())
+                                {
+                                    _id = (int)reader["ID"];
+                                    _name = (string)reader["Name"];
+                                    _password = (string)reader["Password"];
+                                }
                             }
                         }
+                            
                     }
                     CloseConnection();
                     return new AccountDTO((int)_id, _name, _password);
@@ -96,19 +100,20 @@ namespace DataAccessLayer
                     using (DbConnection)
                     {
                         string query = "SELECT * FROM Account WHERE Name=@name AND Password=@password COLLATE SQL_Latin1_General_CP1_CS_AS";
-
-                        SqlCommand spelerCommand = new(query, (SqlConnection)DbConnection);
-                        spelerCommand.Parameters.AddWithValue("@name", accountDTO.Name);
-                        spelerCommand.Parameters.AddWithValue("@password", accountDTO.Password);
-                        using (SqlDataReader reader = spelerCommand.ExecuteReader())
+                        using (SqlCommand sqlCommand = new(query, DbConnection))
                         {
-                            while (reader.Read())
+                            sqlCommand.Parameters.AddWithValue("@name", accountDTO.Name);
+                            sqlCommand.Parameters.AddWithValue("@password", accountDTO.Password);
+                            using (SqlDataReader reader = sqlCommand.ExecuteReader())
                             {
-                                _id = (int)reader["ID"];
-                                _name = (string)reader["Name"];
-                                _password = (string)reader["Password"];
+                                while (reader.Read())
+                                {
+                                    _id = (int)reader["ID"];
+                                    _name = (string)reader["Name"];
+                                    _password = (string)reader["Password"];
+                                }
                             }
-                        }
+                        }                        
                     }
                     CloseConnection();
                     return new AccountDTO((int)_id, _name, _password);

@@ -1,7 +1,6 @@
-
 ﻿using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
-namespace DataAccessLayer
+namespace InterfaceLayer.DTO
 {
     [DataContract]
     public class DemoDTO
@@ -12,9 +11,9 @@ namespace DataAccessLayer
         public int Id { get; set; }
         public string Description { get; set; }
 
-        public DemoDTO(string name) 
+        public DemoDTO(string name)
         {
-            this.Name = name;
+            Name = name;
         }
         public DemoDTO(string name, int accountID)
         {

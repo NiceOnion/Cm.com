@@ -19,7 +19,6 @@ namespace DataAccessLayer
         {
             try
             {
-                InitializeDB();
                 DbConnection.Open();
                 return true;
             }

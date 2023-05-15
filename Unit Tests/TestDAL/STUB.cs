@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer;
-using DataAccessLayer;
 using InterfaceLayer;
+using InterfaceLayer.DTO;
 
 namespace Unit_Tests
 {
@@ -73,11 +73,6 @@ namespace Unit_Tests
             var result = demos.Remove(demo);
              demos.Add(demoDTO);
             return true;
-        }
-
-        public List<DemoDTO> GetDemosOfUser(int userID)
-        {
-            throw new NotImplementedException();
         }
     }
 }
