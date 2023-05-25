@@ -76,5 +76,9 @@ namespace BusinessLayer
         {
             return IDemo.ReinstateDemo(demoId);
         }
+        public bool FullDeleteDemo(int demoId)
+        {
+            return IDemo.FullDeleteDemo(demoId);
+        }
     }
 }

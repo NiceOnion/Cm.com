@@ -93,10 +93,16 @@ namespace DemoFlowAPI.Controllers
             return demoContainer.ReinstateDemo(id);
         }
 
-        [HttpGet("{id}/flows")]
-        public List<Flow> getFlowsOfDemo(int id)
+        [HttpGet("{id}/Flows")]
+        public List<Flow> GetFlowsOfDemo(int id)
         {
             return demoContainer.GetFlowsOfDemo(id);
+        }
+
+        [HttpDelete("{id}/Delete")]
+        public bool FullDeleteDemo(int id)
+        {
+            return demoContainer.FullDeleteDemo(id);
         }
     }
 }
