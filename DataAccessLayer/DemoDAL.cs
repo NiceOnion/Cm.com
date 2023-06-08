@@ -13,30 +13,6 @@ namespace DataAccessLayer
     public class DemoDAL : SQLConnect, IDemo
     {
         public DemoDAL() { InitializeDB(); }
-        public bool SaveDemo(DemoDTO demoObject)
-        {
-            DemoDTO demoDTO = null;
-            try
-            {
-
-                OpenConnection();
-                string sqlstring = "INSERT INTO [Demo] ([Name], [Visibility], AccountID) VALUES(@Name, @Visibility, 1)";
-                SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
-                sqlCommand.Parameters.AddWithValue("@Name", demoObject.Name);
-                sqlCommand.Parameters.AddWithValue("@Visibility", demoObject.Visibility);
-                return sqlCommand.ExecuteNonQuery() > 0;
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                throw;
-            }
-            finally
-            {
-                CloseConnection();
-            }
-            return true;
-        }
         public bool EditDemo(DemoDTO demoDTO)
         {
             try
@@ -135,7 +111,7 @@ namespace DataAccessLayer
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
                 sqlCommand.Parameters.AddWithValue("@name", demoDTO.Name);
                 sqlCommand.Parameters.AddWithValue("@type", "sms");
-                sqlCommand.Parameters.AddWithValue("@visibility", false);
+                sqlCommand.Parameters.AddWithValue("@visibility", true);
                 sqlCommand.Parameters.AddWithValue("@accountId", demoDTO.AccountID);
                 sqlCommand.Parameters.AddWithValue("@description", demoDTO.Description);
 
@@ -205,7 +181,7 @@ namespace DataAccessLayer
             try
             {
                 OpenConnection();
-                var command = new SqlCommand("SELECT ID, Name, Visibility, Description, AccountID FROM Demo WHERE Visibility = 1 AND AccountID = @accountId", DbConnection);
+                var command = new SqlCommand("SELECT ID, Name, Visibility, Description, AccountID FROM Demo WHERE Visibility = 1 AND AccountID = @accountId and Deleted_at is NULL", DbConnection);
                 command.Parameters.AddWithValue("accountId", userId);
 
                 SqlDataReader demoReader = command.ExecuteReader();
@@ -227,18 +203,13 @@ namespace DataAccessLayer
             return result;
         }
 
-        public bool EditDemo(int DemoID)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<DemoDTO> GetArchivedDemosOfUser(int userId)
         {
             var demos = new List<DemoDTO>();
             try
             {
                 OpenConnection();
-                var getArchivedCommand = new SqlCommand("SELECT Id, Name, Description, Visibility, AccountID FROM Demo WHERE AccountID = @uid and Visibility = 0", DbConnection);
+                var getArchivedCommand = new SqlCommand("SELECT Id, Name, Description, Visibility, AccountID FROM Demo WHERE AccountID = @uid and Visibility = 0 and Deleted_at is NULL", DbConnection);
                 getArchivedCommand.Parameters.AddWithValue("uid", userId);
                 var getArchivedReader = getArchivedCommand.ExecuteReader();
                 while (getArchivedReader.Read())
@@ -298,6 +269,38 @@ namespace DataAccessLayer
                 throw e;
             }
             finally { CloseConnection(); }
+            return result;
+        }
+
+        public bool FullDeleteDemo(int id)
+        {
+            bool result = false;
+            try
+            {
+                OpenConnection();
+                var fullDeleteDemo = new SqlCommand("UPDATE Demo SET Deleted_at = GETDATE() WHERE Id = @id", DbConnection);
+                fullDeleteDemo.Parameters.AddWithValue("id", id);
+                if (fullDeleteDemo.ExecuteNonQuery() > 0) result = true;
+            }
+            catch (Exception e) { throw e; }
+            finally { CloseConnection(); }
+            return result;
+        }
+
+        public bool DeleteFlow(int id)
+        {
+            bool result = false;
+
+            try
+            {
+                OpenConnection();
+                var deleteFlowCommand = new SqlCommand("DELETE FROM Flow WHERE Id = @id", DbConnection);
+                deleteFlowCommand.Parameters.AddWithValue("id", id);
+                if (deleteFlowCommand.ExecuteNonQuery() > 0) { result = true; }
+            }
+            catch (Exception e) { throw e; }
+            finally { CloseConnection(); }
+
             return result;
         }
     }

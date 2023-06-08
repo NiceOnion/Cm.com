@@ -19,14 +19,12 @@ namespace Unit_Tests
             demos.Add(new DemoDTO("test", true)
             {
                 Id = 1,
-                Name = "test",
-                Visibility = true
+                AccountID = 1,
             });
             demos.Add(new DemoDTO("test2", true)
             {
                 Id = 2,
-                Name = "test2",
-                Visibility = true
+                AccountID = 1,
             });
         }
 
@@ -49,17 +47,18 @@ namespace Unit_Tests
 
         public List<DemoDTO> GetDemosOfUser(int userId)
         {
-            throw new NotImplementedException();
+            return demos.Where(demo => demo.AccountID == userId).ToList();
         }
 
         public DemoDTO GetOneDemo(int ID)
         {
-            throw new NotImplementedException();
+            return demos.Where(demo => demo.Id == ID).First();
         }
 
         public bool NewDemo(DemoDTO demoDTO)
         {
-            throw new NotImplementedException();
+            demos.Add(demoDTO); 
+            return true;
         }
 
         public bool SaveDemo(DemoDTO demoDTO)
@@ -73,6 +72,41 @@ namespace Unit_Tests
             var result = demos.Remove(demo);
              demos.Add(demoDTO);
             return true;
+        }
+
+        public bool EditDemo(int DemoID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DemoDTO GetOneDemoByName(string demoName)
+        {
+            return demos.Where(demo => demo.Name == demoName).First();
+        }
+
+        public List<DemoDTO> GetArchivedDemosOfUser(int userId)
+        {
+            return demos.Where(demo => demo.AccountID == userId).Where(demo => demo.Visibility == false).ToList();
+        }
+
+        public bool ReinstateDemo(int demoId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<FlowDTO> GetFlowsOfDemo(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool FullDeleteDemo(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteFlow(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

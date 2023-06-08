@@ -31,16 +31,9 @@ namespace BusinessLayer
         {
             return IDemo.GetDemosOfUser(userID).ConvertAll(demoDTO => new DemoObject(demoDTO)); ;
         }
-        public bool EditDemo(int DemoID)
+        public bool EditDemo(DemoObject demo)
         {
-            return EditDemo(DemoID);
-        }
-        public bool SaveDemo(DemoObject demoObject)
-        {
-            DemoDTO demoDTO = new DemoDTO(demoObject.Name);
-            demoDTO.Visibility = demoObject.Visibility;
-            IDemo.SaveDemo(demoDTO);
-            return true;
+            return IDemo.EditDemo(demo.toDTO());
         }
         public bool DeleteDemo(int id)
         {
@@ -75,6 +68,14 @@ namespace BusinessLayer
         public bool ReinstateDemo(int demoId)
         {
             return IDemo.ReinstateDemo(demoId);
+        }
+        public bool FullDeleteDemo(int demoId)
+        {
+            return IDemo.FullDeleteDemo(demoId);
+        }
+        public bool DeleteFlow(int flowId)
+        {
+            return IDemo.DeleteFlow(flowId);
         }
     }
 }

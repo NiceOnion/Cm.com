@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using DataAccessLayer;
+using InterfaceLayer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DemoFlowAPI.Controllers
@@ -46,6 +47,14 @@ namespace DemoFlowAPI.Controllers
             {
                 return BadRequest(result);
             }
+        }
+
+        [HttpDelete("{flowId}")]
+        public bool Delete(int demoId, int flowId)
+        {
+            var democontainer = new DemoContainer(demoDAL);
+
+            return democontainer.DeleteFlow(flowId);
         }
     }
 }

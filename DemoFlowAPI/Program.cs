@@ -8,6 +8,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
+
 //Add Cors policy
 builder.Services.AddCors(options =>
 {
@@ -29,6 +30,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseSwaggerUI(x => { x.SwaggerEndpoint("/swagger/v1/swagger.yaml", "Zeipt Dashboard API"); });
 }
 
 app.UseHttpsRedirection();
