@@ -12,7 +12,6 @@ namespace InterfaceLayer
         public bool NewDemo(DemoDTO demoDTO);
         public DemoDTO GetOneDemo(int ID);
         public List<DemoDTO> GetDemosOfUser(int userID);
-        public bool SaveDemo(DemoDTO demoObject);
         public bool DeleteDemo(int id);
         public List<DemoDTO> GetDemoList();
         DemoDTO GetOneDemoByName(string demoName);
@@ -20,5 +19,7 @@ namespace InterfaceLayer
         public bool ReinstateDemo(int demoId);
         public List<FlowDTO> GetFlowsOfDemo(int id);
         public bool FullDeleteDemo(int id);
+        public bool DeleteFlow(int id);
+        public bool EditDemo(DemoDTO demoDTO);
     }
 }

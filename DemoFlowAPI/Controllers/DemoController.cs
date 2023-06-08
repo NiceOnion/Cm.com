@@ -48,17 +48,17 @@ namespace DemoFlowAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult EditDemo(int id, DemoObject demoobject)
+        public IActionResult EditDemo(int id, DemoObject demoObject)
         {
 
             // Check if the provided ID matches the ID of the demo object in the request body
-            if (id != demoobject.Id)
+            if (id != demoObject.Id)
             {
                 return BadRequest();
             }
 
             // Try to update the demo object in the database
-            bool result = demoContainer.EditDemo(demoobject.Id);
+            bool result = demoContainer.EditDemo(demoObject);
             if (result) return Ok(result);
             else return NoContent();
         }
@@ -70,16 +70,6 @@ namespace DemoFlowAPI.Controllers
             else return BadRequest();
         }
 
-        [HttpPost]
-        public IActionResult Save(DemoObject demoObject)
-        {
-            var result = demoContainer.SaveDemo(demoObject);
-            if (result == false)
-            {
-                return BadRequest();
-            }
-            return Ok(result);
-        }
 
         [HttpGet("{userId}/Archived")]
         public List<DemoObject> Archived(int userId)

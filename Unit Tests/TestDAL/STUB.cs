@@ -103,5 +103,10 @@ namespace Unit_Tests
         {
             throw new NotImplementedException();
         }
+
+        public bool DeleteFlow(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

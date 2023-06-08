@@ -13,30 +13,6 @@ namespace DataAccessLayer
     public class DemoDAL : SQLConnect, IDemo
     {
         public DemoDAL() { InitializeDB(); }
-        public bool SaveDemo(DemoDTO demoObject)
-        {
-            DemoDTO demoDTO = null;
-            try
-            {
-
-                OpenConnection();
-                string sqlstring = "INSERT INTO [Demo] ([Name], [Visibility], AccountID) VALUES(@Name, @Visibility, 1)";
-                SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
-                sqlCommand.Parameters.AddWithValue("@Name", demoObject.Name);
-                sqlCommand.Parameters.AddWithValue("@Visibility", demoObject.Visibility);
-                return sqlCommand.ExecuteNonQuery() > 0;
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                throw;
-            }
-            finally
-            {
-                CloseConnection();
-            }
-            return true;
-        }
         public bool EditDemo(DemoDTO demoDTO)
         {
             try
@@ -135,7 +111,7 @@ namespace DataAccessLayer
                 SqlCommand sqlCommand = new SqlCommand(sqlstring, DbConnection);
                 sqlCommand.Parameters.AddWithValue("@name", demoDTO.Name);
                 sqlCommand.Parameters.AddWithValue("@type", "sms");
-                sqlCommand.Parameters.AddWithValue("@visibility", false);
+                sqlCommand.Parameters.AddWithValue("@visibility", true);
                 sqlCommand.Parameters.AddWithValue("@accountId", demoDTO.AccountID);
                 sqlCommand.Parameters.AddWithValue("@description", demoDTO.Description);
 
@@ -305,8 +281,26 @@ namespace DataAccessLayer
                 var fullDeleteDemo = new SqlCommand("UPDATE Demo SET Deleted_at = GETDATE() WHERE Id = @id", DbConnection);
                 fullDeleteDemo.Parameters.AddWithValue("id", id);
                 if (fullDeleteDemo.ExecuteNonQuery() > 0) result = true;
-            } catch (Exception e){ throw e; }
+            }
+            catch (Exception e) { throw e; }
             finally { CloseConnection(); }
+            return result;
+        }
+
+        public bool DeleteFlow(int id)
+        {
+            bool result = false;
+
+            try
+            {
+                OpenConnection();
+                var deleteFlowCommand = new SqlCommand("DELETE FROM Flow WHERE Id = @id", DbConnection);
+                deleteFlowCommand.Parameters.AddWithValue("id", id);
+                if (deleteFlowCommand.ExecuteNonQuery() > 0) { result = true; }
+            }
+            catch (Exception e) { throw e; }
+            finally { CloseConnection(); }
+
             return result;
         }
     }

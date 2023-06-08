@@ -43,5 +43,11 @@ namespace BusinessLayer
         {
             return iflow.AddFlow(this.Id, flow.toDTO());
         }
+
+        public DemoDTO toDTO()
+        {
+            var demoDTO = new DemoDTO(Name, Visibility, AccountId, Id, Description);
+            return demoDTO;
+        }
     }
 }

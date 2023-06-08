@@ -79,10 +79,12 @@ namespace DataAccessLayer
                 addFlowCommand.Parameters.AddWithValue("json", flowDTO.Json);
                 addFlowCommand.Parameters.AddWithValue("did", demoId);
                 if (addFlowCommand.ExecuteNonQuery() > 0) result = true;
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 throw e;
-            } finally { CloseConnection(); }
+            }
+            finally { CloseConnection(); }
             return result;
         }
     }
